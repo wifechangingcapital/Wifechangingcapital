@@ -1,0 +1,22 @@
+{
+  "name": "web3-transaction-batcher",
+  "version": "0.0.1",
+  "description": "A utility to batch Ethereum transactions",
+  "main": "index.js",
+  "scripts": {
+    "test": "jest",
+    "ganache": "ganache-cli --deterministic",
+    "compile": "node compile.js",
+    "postinstall": "npm run compile"
+  },
+  "author": "",
+  "license": "ISC",
+  "devDependencies": {
+    "bn.js": "^5.0.0",
+    "ganache": "^6.4.4",
+    "ganache-cli": "^6.7.0",
+    "jest": "^24.9.0",
+    "solc": "^0.5.12",
+    "web3": "^1.2.1"
+  }
+}
