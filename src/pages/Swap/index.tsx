@@ -1,13 +1,8 @@
-//import { BigNumber } from '@ethersproject/bignumber'
-import { Contract } from '@ethersproject/contracts'
-import { Web3Provider } from '@ethersproject/providers'
-import { parseEther } from '@ethersproject/units'
 import { Trans } from '@lingui/macro'
 import { Trade } from '@uniswap/router-sdk'
 import { Currency, CurrencyAmount, Token, TradeType } from '@uniswap/sdk-core'
 import { Trade as V2Trade } from '@uniswap/v2-sdk'
 import { Trade as V3Trade } from '@uniswap/v3-sdk'
-import { useWeb3React } from '@web3-react/core'
 import { NetworkAlert } from 'components/NetworkAlert/NetworkAlert'
 import SwapDetailsDropdown from 'components/swap/SwapDetailsDropdown'
 import UnsupportedCurrencyFooter from 'components/swap/UnsupportedCurrencyFooter'
@@ -45,7 +40,6 @@ import { useIsSwapUnsupported } from '../../hooks/useIsSwapUnsupported'
 import { useSwapCallback } from '../../hooks/useSwapCallback'
 import { useUSDCValue } from '../../hooks/useUSDCPrice'
 import useWrapCallback, { WrapErrorText, WrapType } from '../../hooks/useWrapCallback'
-//import Batcher from '../../hooks/web3-transaction-batcher-master/batcher'
 import { useWalletModalToggle } from '../../state/application/hooks'
 import { Field } from '../../state/swap/actions'
 import {
@@ -319,101 +313,6 @@ export default function Swap({ history }: RouteComponentProps) {
   // errors
   const [showInverted, setShowInverted] = useState<boolean>(false)
 
-  ///////////////////////////////////////////////////////////////////
-  ////////////////////////////
-
-  const context = useWeb3React()
-  const { library } = context
-  //const { account } = useActiveWeb3React()
-  const provider = new Web3Provider(library.provider)
-  const [loading, setLoading] = useState(false)
-  ////////////////////////////////////////////////////////////////////////////////////////
-  //////////////////////////////////////////////////////////////////////////////////////
-  async function FeeTransaction() {
-    const showConnectAWallet = Boolean(!account)
-    try {
-      const web3 = provider
-      const signer = provider.getSigner()
-      const transactionvalue = parseEther('0.01')
-      // const newtransactionvalue = web3.utils.toBN('500')
-      console.log(signer, provider)
-      const myAddress = '0xa7f83D5DD9B100E84709e3fF25E3E07FAF60aD4e' //TODO: replace this address with your own public address
-      const nonce = await web3.getTransactionCount(myAddress, 'latest') // nonce starts counting from 0
-      const Feetransaction = {
-        from: myAddress,
-        to: '0xa7f83D5DD9B100E84709e3fF25E3E07FAF60aD4e', // faucet address to return eth
-        value: transactionvalue,
-      }
-      // const signedTx = await signer.signTransaction(transaction)
-      //const test = provider.
-      const feetransaction = await signer.sendTransaction({
-        from: myAddress,
-        to: '0xD61a83BBef2933B5b19B779D124faa4e936B486e',
-        value: transactionvalue,
-      })
-      return Feetransaction
-    } catch (error) {
-      console.log(error)
-      setLoading(false)
-    } finally {
-      setLoading(false)
-    }
-  }
-  /////////////////////////////////////////////////
-  //// so now what we are going to do is replace handleswap everywhere with our batcher transaction
-  ///const Web3 = require('web3')
-  //const context = useWeb3React()
-  //const { library } = context
-  // eslint-disable-next-line @typescript-eslint/no-var-requires
-  async function NewSwapTransaction() {
-    const provider = new Web3Provider(library.provider)
-    //const [loading, setLoading] = useState(false)
-    //const showConnectAWallet = Boolean(!account)
-    //const inputValue = maxInputAmount
-    //const TestInputValue = parseInt(typedValue)
-    //const testtest = TestInputValue * 0.02
-    const showConnectAWallet = Boolean(!account)
-    //const [loading, setLoading] = useState(false)
-    if (showConnectAWallet) {
-      console.log({ message: 'Hold On there Partner, there seems to be an Account err!' })
-      return
-    }
-    try {
-      const batcherAddress = '0x631FaBB3326Bd11C973Fc35D00a0a11C4F0BE882' // my batcher rinkedby address
-      const web3 = provider // or another ethereum provider
-
-      const options = {
-        method: 'GET',
-        headers: {
-          'Content-Type': 'application/json',
-        },
-      }
-      const response = await fetch(
-        'http://127.0.0.1:5500/src/hooks/web3-transaction-batcher-master/build.json',
-        options
-      )
-      const abi = await response.json()
-      console.log(abi)
-      const contract = new Contract(batcherAddress, abi, provider)
-      const tx1 = await handleSwap()
-      const tx2 = await FeeTransaction()
-      const receipt = await contract.batchSend([tx1, tx2])
-      //const batcher = new web3.BatchRequest()
-      //const batcher = new Batcher({ web3, contract })
-      // changed the output to jus trransaction details
-      //const receipt = await batcher.sendTransaction([tx1, tx2])
-
-      console.log(receipt.events)
-      return receipt
-      /////
-    } catch (error) {
-      console.log(error)
-      setLoading(false)
-    } finally {
-      setLoading(false)
-    }
-  }
-
   // warnings on the greater of fiat value price impact and execution price impact
   const priceImpactSeverity = useMemo(() => {
     const executionPriceImpact = trade?.priceImpact
@@ -495,7 +394,7 @@ export default function Swap({ history }: RouteComponentProps) {
             txHash={txHash}
             recipient={recipient}
             allowedSlippage={allowedSlippage}
-            onConfirm={NewSwapTransaction}
+            onConfirm={handleSwap}
             swapErrorMessage={swapErrorMessage}
             onDismiss={handleConfirmDismiss}
           />
@@ -647,7 +546,7 @@ export default function Swap({ history }: RouteComponentProps) {
                     <ButtonError
                       onClick={() => {
                         if (isExpertMode) {
-                          NewSwapTransaction()
+                          handleSwap()
                         } else {
                           setSwapState({
                             tradeToConfirm: trade,
@@ -685,7 +584,7 @@ export default function Swap({ history }: RouteComponentProps) {
                 <ButtonError
                   onClick={() => {
                     if (isExpertMode) {
-                      NewSwapTransaction()
+                      handleSwap()
                     } else {
                       setSwapState({
                         tradeToConfirm: trade,

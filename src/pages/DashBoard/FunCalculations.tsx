@@ -104,10 +104,10 @@ const Funcalculations = () => {
       <GreyCard style={{ backgroundColor: '#ff0000', textAlign: 'left', boxShadow: '0 1px 5px 4px rgba(0, 0, 0, 1)' }}>
         Your Claimable Balance {claimableBalance}
         {loading ? <Spin indicator={antIcon} className="add-spinner" /> : ''}
+        You have Earned {PastClaims * 1.4}
       </GreyCard>
       <p></p>
       <GreyCard style={{ backgroundColor: '#ff0000', textAlign: 'left', boxShadow: '0 1px 5px 4px rgba(0, 0, 0, 1)' }}>
-        You have Earned {PastClaims * 1.4}
         <p></p>
         You have Earned
         {PastClaims / 1.2} Happy Meals!
