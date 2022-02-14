@@ -1,20 +1,14 @@
 import { LoadingOutlined } from '@ant-design/icons'
-//import { BigNumber } from '@ethersproject/bignumber'
 import { Contract } from '@ethersproject/contracts'
 import { Web3Provider } from '@ethersproject/providers'
 import { formatEther } from '@ethersproject/units'
-//import { Button } from '@material-ui/core'
-//import { makeStyles } from '@material-ui/core/styles'
 import { useWeb3React } from '@web3-react/core'
 import { Spin } from 'antd'
 import { GreyCard } from 'components/Card'
-//import Decimal from 'decimal.js'
 import useActiveWeb3React from 'hooks/useActiveWeb3React'
 import React, { useEffect, useState } from 'react'
 import styled from 'styled-components/macro'
 import { String } from 'typescript-string-operations'
-//import Contract from './artifacts/contracts/Greeter.sol/Greeter.json'
-//const ethers = require('ethers')
 
 const Newinput = styled.input`
   border: 3px solid;
@@ -28,10 +22,9 @@ const Newinput = styled.input`
   background: #ff3333;
 `
 const Styledtext = styled.text`
-  font-size: 12px;
+  font-size: 18px;
   text-color: #ffffff;
 `
-
 const antIcon = <LoadingOutlined style={{ fontSize: 24 }} spin />
 
 const UserTokenBalance = () => {
@@ -65,10 +58,9 @@ const UserTokenBalance = () => {
         const contractaddress = '0x83e9f223e1edb3486f876ee888d76bfba26c475a'
         const contract = new Contract(contractaddress, abi, provider)
         const UserTokenBalance = await contract.balanceOf(account)
-        const test = UserTokenBalance
-        const test0 = await UserTokenBalance.toString()
-        console.log(test0)
-        return test0
+        const FinalResult = await UserTokenBalance.toString()
+        console.log(FinalResult)
+        return FinalResult
       } catch (error) {
         console.log(error)
         setLoading(false)
@@ -78,7 +70,7 @@ const UserTokenBalance = () => {
     }
     async function FetchClaimBalance() {
       if (showConnectAWallet) {
-        console.log({ message: 'Hold On there Partner, there seems to be an Account err!' })
+        console.log({ message: 'Please connect an Account' })
         return
       }
 
@@ -94,9 +86,9 @@ const UserTokenBalance = () => {
         console.log(abi)
         const contractaddress = '0x83e9f223e1edb3486f876ee888d76bfba26c475a'
         const contract = new Contract(contractaddress, abi, provider)
-        const UserTokenBalance = await contract.balanceOf(account)
-        const test = UserTokenBalance
-        const test0 = UserTokenBalance.toString()
+        const UserClaimBalance = await contract.balanceOf(account)
+        const test = UserClaimBalance
+        const test0 = UserClaimBalance.toString()
         console.log(test)
         return test0
       } catch (error) {
@@ -114,9 +106,7 @@ const UserTokenBalance = () => {
 
     FetchBalance()
       .then((result) => formatEther(result))
-      //.then((result) => JSON.parse(result))
       .then((result) => parseInt(result))
-      //.then((result) => result.toFixed(4))
       .then((result) => setuserBalance(result))
   }, [account, showConnectAWallet, library.provider])
 
@@ -136,7 +126,7 @@ const UserTokenBalance = () => {
         Reference Volume{' '}
         <Newinput
           type="Number"
-          placeholder="Input"
+          placeholder="Sample Reference Volume"
           onChange={(e: any) => setReferenceVolume(e.target.value)}
         ></Newinput>{' '}
         <p></p>

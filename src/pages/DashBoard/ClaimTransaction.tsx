@@ -1,10 +1,6 @@
 import { LoadingOutlined } from '@ant-design/icons'
-//import { BigNumber } from '@ethersproject/bignumber'
 import { Contract } from '@ethersproject/contracts'
-import { getNetwork, Web3Provider } from '@ethersproject/providers'
-//import Decimal from 'decimal.js'
-//import { formatEther } from '@ethersproject/units'
-//import { Button } from '@material-ui/core'
+import { Web3Provider } from '@ethersproject/providers'
 import { useWeb3React } from '@web3-react/core'
 import { Spin } from 'antd'
 import { GreyCard } from 'components/Card'
@@ -12,13 +8,7 @@ import { RowBetween } from 'components/Row'
 import useActiveWeb3React from 'hooks/useActiveWeb3React'
 import React, { useCallback, useState } from 'react'
 import styled from 'styled-components/macro'
-//import getLibrary from 'utils/getLibrary'
 
-//import Contract from './artifacts/contracts/Greeter.sol/Greeter.json'
-//const ethers = require('ethers')
-
-// left: 600px;
-// bottom: 40px;
 const ClaimButton = styled.button`
   position: relative;
   display: block;
@@ -39,16 +29,12 @@ const antIcon = <LoadingOutlined style={{ fontSize: 24 }} spin />
 
 const ClaimTransaction = () => {
   const [loading, setLoading] = useState(false)
-  const { account, chainId } = useActiveWeb3React()
+  const { account } = useActiveWeb3React()
   //here I am unsure If I just use the chainid read from the wallet if that will suffice for a provider, I believe so
   const showConnectAWallet = Boolean(!account)
-  const chainInfo = 1
-  const network = getNetwork(chainInfo)
   const context = useWeb3React()
   const { library } = context
   const provider = new Web3Provider(library.provider)
-  //const provider = getDefaultProvider(network)
-  //const library = getLibrary(provider)
   const signer = provider.getSigner()
 
   const handleClaim = useCallback(async () => {
@@ -65,8 +51,6 @@ const ClaimTransaction = () => {
       const data = await response.json()
       const abi = data.result
       console.log(abi)
-
-      //const provider = new EtherscanProvider(network, '432BW4Y2JX817J6CJAWGHAFTXQNFVXRU2Q')
       const contractaddress = '0x83e9f223e1edb3486f876ee888d76bfba26c475a' // "clienttokenaddress"
       const contract = new Contract(contractaddress, abi, signer)
       const ClaimBalance = await contract.approve(account, 1) //.claim(account,amount)
@@ -95,14 +79,7 @@ const ClaimTransaction = () => {
         USDC Dashboard
         <DonateButton>Donate to Charity</DonateButton>
         <RowBetween></RowBetween>
-        <ClaimButton
-          color="secondary"
-          //variant="outlined"
-          //size="large"
-          // fullWidth
-          disabled={!account || loading}
-          onClick={handleClaim}
-        >
+        <ClaimButton color="secondary" disabled={!account || loading} onClick={handleClaim}>
           {loading ? <Spin indicator={antIcon} className="add-spinner" /> : 'Claim'}
         </ClaimButton>
       </GreyCard>

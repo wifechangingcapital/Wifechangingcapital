@@ -7,11 +7,13 @@ import { Spin } from 'antd'
 import { GreyCard } from 'components/Card'
 import useActiveWeb3React from 'hooks/useActiveWeb3React'
 import React, { useEffect, useState } from 'react'
-
-//import Contract from './artifacts/contracts/Greeter.sol/Greeter.json'
-//const ethers = require('ethers')
+import styled from 'styled-components/macro'
 
 const antIcon = <LoadingOutlined style={{ fontSize: 24 }} spin />
+const StyledText = styled.text`
+  font-size: 18px;
+  text-color: #ffffff;
+`
 
 const Funcalculations = () => {
   const [loading, setLoading] = useState(false)
@@ -44,7 +46,6 @@ const Funcalculations = () => {
         const contractaddress = '0x83e9f223e1edb3486f876ee888d76bfba26c475a'
         const contract = new Contract(contractaddress, abi, provider)
         const UserTokenBalance = await contract.balanceOf(account)
-        const test = UserTokenBalance
         const test0 = await UserTokenBalance.toString()
         console.log(test0)
         return test0
@@ -93,18 +94,20 @@ const Funcalculations = () => {
 
     FetchPastClaims()
       .then((result) => formatEther(result))
-      //.then((result) => JSON.parse(result))
       .then((result) => parseInt(result))
-      //.then((result) => result.toFixed(4))
       .then((result) => setPastClaims(result))
   }, [account, showConnectAWallet, library.provider])
 
   return (
     <>
       <GreyCard style={{ backgroundColor: '#ff0000', textAlign: 'left', boxShadow: '0 1px 5px 4px rgba(0, 0, 0, 1)' }}>
-        Your Claimable Balance {claimableBalance}
+        <StyledText style={{ justifyContent: 'left', textAlign: 'left', paddingRight: 50 }}>
+          Your Current Claimable Balance {claimableBalance}
+        </StyledText>
         {loading ? <Spin indicator={antIcon} className="add-spinner" /> : ''}
-        You have Earned {PastClaims * 1.4}
+        <StyledText style={{ justifyContent: 'right', textAlign: 'right' }}>
+          You have Earned in total ${PastClaims * 1.4}
+        </StyledText>
       </GreyCard>
       <p></p>
       <GreyCard style={{ backgroundColor: '#ff0000', textAlign: 'left', boxShadow: '0 1px 5px 4px rgba(0, 0, 0, 1)' }}>
