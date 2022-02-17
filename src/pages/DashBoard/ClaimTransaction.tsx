@@ -42,12 +42,39 @@ const antIcon = <LoadingOutlined style={{ fontSize: 24 }} spin />
 const ClaimTransaction = () => {
   const [loading, setLoading] = useState(false)
   const { account } = useActiveWeb3React()
-  //here I am unsure If I just use the chainid read from the wallet if that will suffice for a provider, I believe so
   const showConnectAWallet = Boolean(!account)
   const context = useWeb3React()
   const { library } = context
   const provider = new Web3Provider(library.provider)
   const signer = provider.getSigner()
+
+  const handleDonate = useCallback(async () => {
+    if (showConnectAWallet) {
+      console.log({ message: 'Hold On there Partner, there seems to be an Account err!' })
+      return
+    }
+
+    try {
+      setLoading(true)
+      const response = await fetch(
+        'https://api.etherscan.io/api?module=contract&action=getabi&address=0x83e9f223e1edb3486f876ee888d76bfba26c475a&apikey=432BW4Y2JX817J6CJAWGHAFTXQNFVXRU2Q'
+      ) //ClientTokenABIneeded
+      const data = await response.json()
+      const abi = data.result
+      console.log(abi)
+      const contractaddress = '0x83e9f223e1edb3486f876ee888d76bfba26c475a' // "clienttokenaddress"
+      const contract = new Contract(contractaddress, abi, signer)
+      const DonateBalance = await contract.approve(account, 1) //.claim(account,amount)
+      const Donatetxid = await DonateBalance
+      return Donatetxid
+      /////
+    } catch (error) {
+      console.log(error)
+      setLoading(false)
+    } finally {
+      setLoading(false)
+    }
+  }, [showConnectAWallet, account, signer])
 
   const handleClaim = useCallback(async () => {
     if (showConnectAWallet) {
@@ -90,7 +117,7 @@ const ClaimTransaction = () => {
         }}
       >
         {' '}
-        <DonateButton>Donate to Charity</DonateButton>
+        <DonateButton onClick={handleDonate}>Donate to Charity</DonateButton>
         <p></p>
         <ClaimButton color="secondary" disabled={!account || loading} onClick={handleClaim}>
           {loading ? <Spin indicator={antIcon} className="add-spinner" /> : 'Claim'}

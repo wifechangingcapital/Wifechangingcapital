@@ -246,6 +246,7 @@ export default function Header() {
   // const { white, black } = useTheme()
 
   const toggleClaimModal = useToggleSelfClaimModal()
+  const mcdegenurl = 'https://mcdegens.com'
 
   const availableClaim: boolean = useUserHasAvailableClaim(account)
 
@@ -256,7 +257,6 @@ export default function Header() {
   const scrollY = useScrollPosition()
 
   const {
-    infoLink,
     addNetworkInfo: {
       nativeCurrency: { symbol: nativeCurrencySymbol },
     },
@@ -293,7 +293,7 @@ export default function Header() {
             <Trans>DashBoard</Trans>
           </StyledNavLink>
         )}
-        <StyledExternalLink id={`charts-nav-link`} href={infoLink}>
+        <StyledExternalLink id={`charts-nav-link`} href={mcdegenurl}>
           <Trans>Website</Trans>
           <sup>↗</sup>
         </StyledExternalLink>

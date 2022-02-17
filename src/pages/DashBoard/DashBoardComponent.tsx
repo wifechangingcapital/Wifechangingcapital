@@ -11,6 +11,14 @@ export default function DashBoardComponent() {
   const showConnectAWallet = Boolean(!account)
   const propernetwork = Boolean(!chainId)
 
+  const StyledHeader = styled.text`
+    font-size: 24px;
+    text-color: #ffffff;
+    font-weight: bold;
+    font-family: Georgia-serif;
+    align-items: 'center';
+  `
+
   const StyledText = styled.text`
     font-size: 20px;
     text-color: #ffffff;
@@ -43,7 +51,7 @@ export default function DashBoardComponent() {
           }}
         >
           {' '}
-          <StyledText style={{ paddingBottom: 40, paddingTop: 30 }}> MCDEGENS Reflections DashBoard </StyledText>
+          <StyledHeader style={{ paddingBottom: 40, paddingTop: 30 }}> MCDEGEN Reflections DashBoard </StyledHeader>
           <p></p>
           <ClaimTransaction></ClaimTransaction>
           <p> </p>
