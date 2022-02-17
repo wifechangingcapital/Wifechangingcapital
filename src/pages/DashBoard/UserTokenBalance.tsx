@@ -11,8 +11,8 @@ import styled from 'styled-components/macro'
 import { String } from 'typescript-string-operations'
 
 const Newinput = styled.input`
-  border: 3px solid;
-  border-radius: 5px;
+  border: 2px solid;
+  border-radius: 25px;
   font-size: 12px;
   text-color: #ffffff;
   margin: 0.25rem;
@@ -112,17 +112,26 @@ const UserTokenBalance = () => {
 
   return (
     <>
-      <GreyCard style={{ backgroundColor: '#ff0000', boxShadow: '0 1px 5px 4px rgba(0, 0, 0, 1)' }}>
+      <GreyCard
+        style={{ backgroundColor: '#f7140c', boxShadow: '0 0px 0px 4px rgba(0, 0, 0, 1)', borderRadius: '20px' }}
+      >
         <Styledtext style={{ justifyContent: 'right', textAlign: 'left', paddingRight: 250 }}>
           {' '}
-          Your ClaimableUSDC {claimableBalance}
+          Your Claimable USDC {claimableBalance}
         </Styledtext>
         <Styledtext style={{ justifyContent: 'right', textAlign: 'right' }}>
           Your Token Balance {userBalance}
         </Styledtext>
       </GreyCard>
       <p></p>
-      <GreyCard style={{ backgroundColor: '#ff0000', textAlign: 'left', boxShadow: '0 1px 5px 4px rgba(0, 0, 0, 1)' }}>
+      <GreyCard
+        style={{
+          backgroundColor: '#f7140c',
+          textAlign: 'left',
+          boxShadow: '0 0px 0px 4px rgba(0, 0, 0, 1)',
+          borderRadius: '20px',
+        }}
+      >
         Reference Volume{' '}
         <Newinput
           type="Number"

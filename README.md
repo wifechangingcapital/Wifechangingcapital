@@ -69,8 +69,5 @@ Then on the Swap.tsx page, and i bet the currencyinput panel I will have to add 
 with the swap transaction payload, right now it is not included, it is instead sent to metamask without
 then in meta we can optionally set it or just sign. 
 
-
-///Notes for tomorrow 
-- number list of tasks go through them and order them on when you want to complete
-- submit timeline, and bill without swap fee for now. 
-- # Uniswapproject
+For the theme files their are chnages where instead of a background color we loaded an image.
+the header file was chnaged to incorporate the logo and take off the dark theme settings. a couple menu items where made inacessible also. 

@@ -9,22 +9,25 @@ import useActiveWeb3React from 'hooks/useActiveWeb3React'
 import React, { useEffect, useState } from 'react'
 import styled from 'styled-components/macro'
 
+import chickennuggets from '../../assets/images/chickennuggets.png'
+import happymeal from '../../assets/images/happymeal.png'
+
 const antIcon = <LoadingOutlined style={{ fontSize: 24 }} spin />
 const StyledText = styled.text`
   font-size: 18px;
   text-color: #ffffff;
 `
-
+const StyledImg = styled.img`
+  justify-content: 'right';
+`
 const Funcalculations = () => {
   const [loading, setLoading] = useState(false)
   const { account } = useActiveWeb3React()
-  //here I am unsure If I just use the chainid read from the wallet if that will suffice for a provider, I believe so
   const showConnectAWallet = Boolean(!account)
   const [claimableBalance, setclaimableBalance] = useState(Number)
   const [PastClaims, setPastClaims] = useState(Number)
   const context = useWeb3React()
   const { library } = context
-  //// put in if !chainid=1 return 'connect to mainnet eth' else return [
 
   useEffect(() => {
     async function FetchPastClaims() {
@@ -100,7 +103,14 @@ const Funcalculations = () => {
 
   return (
     <>
-      <GreyCard style={{ backgroundColor: '#ff0000', textAlign: 'left', boxShadow: '0 1px 5px 4px rgba(0, 0, 0, 1)' }}>
+      <GreyCard
+        style={{
+          backgroundColor: '#f7140c',
+          textAlign: 'left',
+          boxShadow: '0 0px 0px 4px rgba(0, 0, 0, 1)',
+          borderRadius: '20px',
+        }}
+      >
         <StyledText style={{ justifyContent: 'left', textAlign: 'left', paddingRight: 50 }}>
           Your Current Claimable Balance {claimableBalance}
         </StyledText>
@@ -110,13 +120,35 @@ const Funcalculations = () => {
         </StyledText>
       </GreyCard>
       <p></p>
-      <GreyCard style={{ backgroundColor: '#ff0000', textAlign: 'left', boxShadow: '0 1px 5px 4px rgba(0, 0, 0, 1)' }}>
-        <p></p>
-        You have Earned
-        {PastClaims / 1.2} Happy Meals!
-        <p></p>
-        You have Earned
-        {PastClaims / 0.1} Chicken Nuggets!
+      <GreyCard
+        style={{
+          backgroundColor: '#f7140c',
+          textAlign: 'left',
+          boxShadow: '0 0px 0px 4px rgba(0, 0, 0, 1)',
+          borderRadius: '20px',
+        }}
+      >
+        <StyledText style={{ paddingRight: 120, paddingLeft: 10 }}>
+          You have Earned {''} {PastClaims / 1.2} {''} Happy Meals!
+        </StyledText>
+        <StyledImg
+          style={{ justifyContent: 'right', textAlign: 'right' }}
+          src={happymeal}
+          height={75}
+          width={150}
+          alt="happymeal"
+        ></StyledImg>
+        <StyledText style={{ paddingRight: 120, paddingLeft: 10, paddingBottom: 15 }}>
+          <p></p>
+          You have Earned {''} {PastClaims / 0.1} {''} Chicken Nuggets!{' '}
+        </StyledText>{' '}
+        <StyledImg
+          style={{ justifyContent: 'right', textAlign: 'right' }}
+          src={chickennuggets}
+          height={100}
+          width={150}
+          alt="chickennuggets"
+        ></StyledImg>
       </GreyCard>
     </>
   )

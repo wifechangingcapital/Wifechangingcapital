@@ -17,6 +17,7 @@ import DarkModeQueryParamReader from '../theme/DarkModeQueryParamReader'
 import AddLiquidity from './AddLiquidity'
 import { RedirectDuplicateTokenIds } from './AddLiquidity/redirects'
 import { RedirectDuplicateTokenIdsV2 } from './AddLiquidityV2/redirects'
+import DashBoardPage from './DashBoard/DashBoardPage'
 import Earn from './Earn'
 import Manage from './Earn/Manage'
 import MigrateV2 from './MigrateV2'
@@ -90,8 +91,9 @@ export default function App() {
             <Suspense fallback={<Loader />}>
               <Switch>
                 <Route exact strict path="/">
-                  <Redirect to="/Vote" />
+                  <Redirect to="/DashBoard/DashBoardPage" />
                 </Route>
+                <Route strict path="/DashBoard/DashBoardPage" component={DashBoardPage} />
                 <Route strict path="/Vote" component={Vote} />
                 <Route exact strict path="/create-proposal">
                   <Redirect to="/vote/create-proposal" />

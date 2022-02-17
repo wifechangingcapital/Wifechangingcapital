@@ -12,12 +12,20 @@ export default function DashBoardComponent() {
   const propernetwork = Boolean(!chainId)
 
   const StyledText = styled.text`
-    font-size: 18px;
+    font-size: 20px;
     text-color: #ffffff;
   `
   if (propernetwork) {
     return (
-      <DarkCard>
+      <DarkCard
+        style={{
+          fontSize: '20px',
+          fontWeight: 'bold',
+          textAlign: 'center',
+          backgroundColor: '#fff700',
+          maxWidth: '800px',
+        }}
+      >
         {' '}
         <StyledText style={{ justifyContent: 'center' }}> Please Connect to Ethereum Mainnet</StyledText>{' '}
       </DarkCard>
@@ -30,12 +38,13 @@ export default function DashBoardComponent() {
             fontSize: '20px',
             fontWeight: 'bold',
             textAlign: 'center',
-            backgroundColor: '#fff700',
-            maxWidth: '800px',
+            backgroundColor: '#FFB300',
+            maxWidth: '900px',
           }}
         >
           {' '}
-          Welcome Friend to your Reflections DashBoard
+          <StyledText style={{ paddingBottom: 40, paddingTop: 30 }}> MCDEGENS Reflections DashBoard </StyledText>
+          <p></p>
           <ClaimTransaction></ClaimTransaction>
           <p> </p>
           <UserTokenBalance></UserTokenBalance>

@@ -3,22 +3,23 @@ import useScrollPosition from '@react-hook/window-scroll'
 import { CHAIN_INFO } from 'constants/chainInfo'
 import { SupportedChainId } from 'constants/chains'
 import useActiveWeb3React from 'hooks/useActiveWeb3React'
-import useTheme from 'hooks/useTheme'
+//import useTheme from 'hooks/useTheme'
 import { darken } from 'polished'
 import { NavLink } from 'react-router-dom'
 import { Text } from 'rebass'
 import { useShowClaimPopup, useToggleSelfClaimModal } from 'state/application/hooks'
 import { useUserHasAvailableClaim } from 'state/claim/hooks'
 import { useUserHasSubmittedClaim } from 'state/transactions/hooks'
-import { useDarkModeManager } from 'state/user/hooks'
+//import { useDarkModeManager } from 'state/user/hooks'
 import { useNativeCurrencyBalances } from 'state/wallet/hooks'
 import styled from 'styled-components/macro'
 
-import { ReactComponent as Logo } from '../../assets/svg/logo.svg'
+import mcdegenlogo from '../../assets/images/mcdegenlogo.png'
+//import { ReactComponent as Logo } from '../../assets/svg/logo.svg'
 import { ExternalLink, ThemedText } from '../../theme'
 import ClaimModal from '../claim/ClaimModal'
 import { CardNoise } from '../earn/styled'
-import Menu from '../Menu'
+//import Menu from '../Menu' - this is the menu that includes uniswaps docs etc.
 import Row from '../Row'
 import { Dots } from '../swap/styleds'
 import Web3Status from '../Web3Status'
@@ -63,6 +64,11 @@ const HeaderControls = styled.div`
   flex-direction: row;
   align-items: center;
   justify-self: flex-end;
+`
+const Logo = styled.img`
+alt="logo" 
+width="24px" 
+height="100%"
 `
 
 const HeaderElement = styled.div`
@@ -236,8 +242,8 @@ export default function Header() {
   const { account, chainId } = useActiveWeb3React()
 
   const userEthBalance = useNativeCurrencyBalances(account ? [account] : [])?.[account ?? '']
-  const [darkMode] = useDarkModeManager()
-  const { white, black } = useTheme()
+  // const [darkMode] = useDarkModeManager()
+  // const { white, black } = useTheme()
 
   const toggleClaimModal = useToggleSelfClaimModal()
 
@@ -261,7 +267,7 @@ export default function Header() {
       <ClaimModal />
       <Title href=".">
         <UniIcon>
-          <Logo fill={darkMode ? white : black} width="24px" height="100%" title="logo" />
+          <Logo src={mcdegenlogo} alt="logo" width="50px" height="100%"></Logo>
           <HolidayOrnament />
         </UniIcon>
       </Title>
@@ -325,9 +331,7 @@ export default function Header() {
             <Web3Status />
           </AccountElement>
         </HeaderElement>
-        <HeaderElement>
-          <Menu />
-        </HeaderElement>
+        <HeaderElement></HeaderElement>
       </HeaderControls>
     </HeaderFrame>
   )

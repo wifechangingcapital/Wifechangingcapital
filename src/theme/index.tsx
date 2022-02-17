@@ -7,6 +7,8 @@ import styled, {
   ThemeProvider as StyledComponentsThemeProvider,
 } from 'styled-components/macro'
 
+//import download from '../assets/images/download.jpg'
+import mcdegenbackground from '../assets/images/mcdegenbackground.jpg'
 import { useIsDarkMode } from '../state/user/hooks'
 import { Colors } from './styled'
 
@@ -206,11 +208,13 @@ export const ThemedText = {
     return <TextWrapper fontWeight={500} color={error ? 'red1' : 'text2'} {...props} />
   },
 }
-
+// background-color: ${({ theme }) => theme.red3} !important;
 export const ThemedGlobalStyle = createGlobalStyle`
 html {
   color: ${({ theme }) => theme.text1};
-  background-color: ${({ theme }) => theme.bg1} !important;
+ 
+ background-image: ${`url(${mcdegenbackground})`}
+
 }
 
 a {

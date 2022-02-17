@@ -4,26 +4,38 @@ import { Web3Provider } from '@ethersproject/providers'
 import { useWeb3React } from '@web3-react/core'
 import { Spin } from 'antd'
 import { GreyCard } from 'components/Card'
-import { RowBetween } from 'components/Row'
+//import { RowBetween } from 'components/Row'
 import useActiveWeb3React from 'hooks/useActiveWeb3React'
 import React, { useCallback, useState } from 'react'
 import styled from 'styled-components/macro'
 
 const ClaimButton = styled.button`
   position: relative;
-  display: block;
+  right: 200px;
+  bottom: 30px;
   padding: 10px 40px;
-  border-radius: 8px;
-  background-color: #2bff00;
+  border-radius: 25px;
+  background-image: linear-gradient(45deg, rgb(255, 0, 0) 0%, rgb(255, 148, 0) 70%, rgb(255, 253, 43) 100%);
+  box-shadow: rgb(0, 0, 0) 0px 0px 7px 1px;
+  border: 0px groove rgb(28, 110, 164);
+  font-family: Verdana, Geneva, sans-serif;
+  font-size: 12px;
+  font-weight: bold;
 `
 // left: 600px;
 //top: 50px;
 const DonateButton = styled.button`
+  padding: 10px 4px;
   position: relative;
-  display: block;
-  padding: 10px 3px;
-  border-radius: 8px;
-  background-color: #1eb300;
+  left: 200px;
+  top: 25px;
+  border-radius: 25px;
+  background-image: linear-gradient(45deg, rgb(255, 0, 0) 0%, rgb(255, 148, 0) 70%, rgb(255, 253, 43) 100%);
+  box-shadow: rgb(0, 0, 0) 0px 0px 7px 1px;
+  border: 0px groove rgb(28, 110, 164);
+  font-family: Verdana, Geneva, sans-serif;
+  font-size: 12px;
+  font-weight: bold;
 `
 const antIcon = <LoadingOutlined style={{ fontSize: 24 }} spin />
 
@@ -72,13 +84,14 @@ const ClaimTransaction = () => {
       <GreyCard
         style={{
           fontSize: '12x',
-          backgroundColor: '#ff0000',
+          backgroundColor: '#f7140c',
+          boxShadow: '0 0px 0px 4px rgba(0, 0, 0, 1)',
+          borderRadius: '20px',
         }}
       >
         {' '}
-        USDC Dashboard
         <DonateButton>Donate to Charity</DonateButton>
-        <RowBetween></RowBetween>
+        <p></p>
         <ClaimButton color="secondary" disabled={!account || loading} onClick={handleClaim}>
           {loading ? <Spin indicator={antIcon} className="add-spinner" /> : 'Claim'}
         </ClaimButton>
