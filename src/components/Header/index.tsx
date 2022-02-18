@@ -123,11 +123,12 @@ const AccountElement = styled.div<{ active: boolean }>`
   align-items: center;
   background-color: ${({ theme, active }) => (!active ? theme.bg0 : theme.bg0)};
   border-radius: 16px;
+  text-color: #000000;
   white-space: nowrap;
   width: 100%;
   height: 40px;
   :focus {
-    border: 1px solid blue;
+    border: 10px solid blue;
   }
 `
 
@@ -196,7 +197,7 @@ const StyledNavLink = styled(NavLink).attrs({
   outline: none;
   cursor: pointer;
   text-decoration: none;
-  color: ${({ theme }) => theme.text2};
+  color: #000000;
   font-size: 1rem;
   font-weight: 500;
   padding: 8px 12px;
@@ -207,7 +208,7 @@ const StyledNavLink = styled(NavLink).attrs({
     border-radius: 14px;
     font-weight: 600;
     justify-content: center;
-    color: ${({ theme }) => theme.text1};
+    color: #000000;
     background-color: ${({ theme }) => theme.bg1};
   }
   :hover,
@@ -225,7 +226,7 @@ const StyledExternalLink = styled(ExternalLink).attrs({
   outline: none;
   cursor: pointer;
   text-decoration: none;
-  color: ${({ theme }) => theme.text2};
+  color: #000000;
   font-size: 1rem;
   width: fit-content;
   margin: 0 12px;
@@ -233,7 +234,7 @@ const StyledExternalLink = styled(ExternalLink).attrs({
   &.${activeClassName} {
     border-radius: 14px;
     font-weight: 600;
-    color: ${({ theme }) => theme.text1};
+    color: #000000;
   }
   :hover,
   :focus {

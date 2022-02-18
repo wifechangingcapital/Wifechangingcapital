@@ -61,15 +61,15 @@ function colors(darkMode: boolean): Colors {
     black,
 
     // text
-    text1: darkMode ? '#FFFFFF' : '#FFFFFF', //edited for white text
+    text1: darkMode ? '#FFFFFF' : '#FFFFFF', //edited for white text // baclcolor code is #00000
     text2: darkMode ? '#C3C5CB' : '#565A69',
     text3: darkMode ? '#8F96AC' : '#6E727D',
     text4: darkMode ? '#B2B9D2' : '#C3C5CB',
     text5: darkMode ? '#2C2F36' : '#EDEEF2',
 
     // backgrounds / greys
-    bg0: darkMode ? '#191B1F' : '#FFF',
-    bg1: darkMode ? '#212429' : '#F7F8FA',
+    bg0: darkMode ? '#191B1F' : '#FFFFFF',
+    bg1: darkMode ? '#212429' : '#000000',
     bg2: darkMode ? '#2C2F36' : '#EDEEF2',
     bg3: darkMode ? '#40444F' : '#CED0D9',
     bg4: darkMode ? '#565A69' : '#888D9B',
@@ -215,8 +215,9 @@ html {
   
  
  background-image: ${`url(${mcdegenbackground})`};
- 
  color: ${({ theme }) => theme.text1};
+ 
+
 
 }
 

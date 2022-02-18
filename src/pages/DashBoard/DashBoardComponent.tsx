@@ -1,3 +1,4 @@
+import { SupportedChainId } from 'constants/chains'
 import useActiveWeb3React from 'hooks/useActiveWeb3React'
 import styled from 'styled-components/macro'
 
@@ -9,13 +10,14 @@ import UserTokenBalance from './UserTokenBalance'
 export default function DashBoardComponent() {
   const { account, chainId } = useActiveWeb3React()
   const showConnectAWallet = Boolean(!account)
-  const propernetwork = Boolean(!chainId)
+  //const propernetwork = Boolean(!chainId)
+  const isNotOnMainnet = Boolean(chainId && chainId !== SupportedChainId.MAINNET)
 
   const StyledText = styled.text`
     font-size: 20px;
     text-color: #ffffff;
   `
-  if (propernetwork) {
+  if (isNotOnMainnet) {
     return (
       <GreyCard
         style={{
@@ -31,7 +33,14 @@ export default function DashBoardComponent() {
       </GreyCard>
     )
   } else {
-    if (!showConnectAWallet) {
+    if (showConnectAWallet) {
+      return (
+        <GreyCard>
+          {' '}
+          <StyledText style={{ justifyContent: 'center' }}> Connect a wallet to continue </StyledText>{' '}
+        </GreyCard>
+      )
+    } else {
       return (
         <>
           <ClaimTransaction></ClaimTransaction>
@@ -40,13 +49,6 @@ export default function DashBoardComponent() {
           <p></p>
           <Funcalculations></Funcalculations>
         </>
-      )
-    } else {
-      return (
-        <GreyCard>
-          {' '}
-          <StyledText style={{ justifyContent: 'center' }}> Connect a wallet to continue </StyledText>{' '}
-        </GreyCard>
       )
     }
   }

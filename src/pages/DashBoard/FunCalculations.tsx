@@ -1,79 +1,65 @@
-import { LoadingOutlined } from '@ant-design/icons'
+//import { LoadingOutlined } from '@ant-design/icons'
 import { Contract } from '@ethersproject/contracts'
 import { Web3Provider } from '@ethersproject/providers'
 import { formatEther } from '@ethersproject/units'
 import { useWeb3React } from '@web3-react/core'
-import { Spin } from 'antd'
+//import { Spin } from 'antd'
 import { GreyCard } from 'components/Card'
 import useActiveWeb3React from 'hooks/useActiveWeb3React'
 import React, { useEffect, useState } from 'react'
 import styled from 'styled-components/macro'
 
-import chickennuggets from '../../assets/images/chickennuggets.png'
 import happymeal from '../../assets/images/happymeal.png'
+import Nuggies from '../../assets/images/Nuggies.png'
 
-const antIcon = <LoadingOutlined style={{ fontSize: 24 }} spin />
+//const antIcon = <LoadingOutlined style={{ fontSize: 24 }} spin />
+
 const StyledText = styled.text`
-  text-shadow: 0px 1px 0px rgba(0, 0, 0, 0.2);
+  font-family: Tahoma, Geneva, sans-serif;
   font-size: 18px;
-  text-color: #ffffff;
-  font-weight: bold;
-  text-align: center;
-  align-items: center;
+  text-shadow: 0px 1px 0px rgba(0, 0, 0, 0.2);
   position: relative;
+  font-weight: bold;
 `
+
 const StyledText2 = styled.text`
-  text-shadow: 0px 1px 0px rgba(0, 0, 0, 0.2);
+  font-family: Tahoma, Geneva, sans-serif;
   font-size: 18px;
-  text-color: #ffffff;
-  font-weight: bold;
-  text-align: center;
-  align-items: center;
+  text-shadow: 0px 1px 0px rgba(0, 0, 0, 0.2);
   position: relative;
-  bottom: 30px;
+  font-weight: bold;
 `
-const StyledImg = styled.img`
-  justify-content: 'right';
+
+const StyledText4 = styled.text`
+  font-family: Tahoma, Geneva, sans-serif;
+  font-size: 18px;
+  text-shadow: 0px 1px 0px rgba(0, 0, 0, 0.2);
+  position: relative;
+  font-weight: bold;
+`
+const Styledimage = styled.img`
+  max-width: 50px;
+  max-height: 50px;
+  position: relative;
+  left: 240px;
+`
+const Styledimage2 = styled.img`
+  max-width: 50px;
+  max-height: 50px;
+  left: 200px;
+  position: relative;
 `
 const Funcalculations = () => {
-  const [loading, setLoading] = useState(false)
+  //const [loading, setLoading] = useState(false)
   const { account } = useActiveWeb3React()
   const showConnectAWallet = Boolean(!account)
-  const [claimableBalance, setclaimableBalance] = useState(Number)
+  // const [claimableBalance, setclaimableBalance] = useState(Number)
   const [projectTotal, setprojecttotal] = useState(Number)
   const [PastClaims, setPastClaims] = useState(Number)
   const context = useWeb3React()
   const { library } = context
 
   useEffect(() => {
-    async function FetchClaimBalance() {
-      if (showConnectAWallet) {
-        console.log({ message: 'Hold On there Partner, there seems to be an Account err!' })
-        return
-      }
-
-      try {
-        setLoading(true)
-        const provider = new Web3Provider(library.provider)
-        const response = await fetch(
-          'https://api.etherscan.io/api?module=contract&action=getabi&address=0x83e9f223e1edb3486f876ee888d76bfba26c475a&apikey=432BW4Y2JX817J6CJAWGHAFTXQNFVXRU2Q'
-        )
-
-        const data = await response.json()
-        const abi = data.result
-        console.log(abi)
-        const contractaddress = '0x83e9f223e1edb3486f876ee888d76bfba26c475a'
-        const contract = new Contract(contractaddress, abi, provider)
-        const UserClaimableBalance = await contract.balanceOf(account)
-        const Claimable = await UserClaimableBalance.toString()
-        return Claimable
-      } catch (error) {
-        console.log(error)
-        setLoading(false)
-      } finally {
-        setLoading(false)
-      }
-    }
     async function FetchPastClaims() {
       if (showConnectAWallet) {
         console.log({ message: 'Hold On there Partner, there seems to be an Account err!' })
@@ -81,7 +67,6 @@ const Funcalculations = () => {
       }
 
       try {
-        setLoading(true)
         const provider = new Web3Provider(library.provider)
         const response = await fetch(
           'https://api.etherscan.io/api?module=contract&action=getabi&address=0x83e9f223e1edb3486f876ee888d76bfba26c475a&apikey=432BW4Y2JX817J6CJAWGHAFTXQNFVXRU2Q'
@@ -98,9 +83,7 @@ const Funcalculations = () => {
         return PastClaims
       } catch (error) {
         console.log(error)
-        setLoading(false)
       } finally {
-        setLoading(false)
       }
     }
     async function FetchProjectTotal() {
@@ -110,7 +93,6 @@ const Funcalculations = () => {
       }
 
       try {
-        setLoading(true)
         const provider = new Web3Provider(library.provider)
         const response = await fetch(
           'https://api.etherscan.io/api?module=contract&action=getabi&address=0x83e9f223e1edb3486f876ee888d76bfba26c475a&apikey=432BW4Y2JX817J6CJAWGHAFTXQNFVXRU2Q'
@@ -126,17 +108,9 @@ const Funcalculations = () => {
         return projecttotal
       } catch (error) {
         console.log(error)
-        setLoading(false)
       } finally {
-        setLoading(false)
       }
     }
-
-    FetchClaimBalance()
-      .then((result) => formatEther(result))
-      .then((result) => JSON.parse(result))
-      .then((result) => result.toFixed(2))
-      .then((result) => setclaimableBalance(result))
 
     FetchPastClaims()
       .then((result) => formatEther(result))
@@ -154,55 +128,30 @@ const Funcalculations = () => {
     <>
       <GreyCard
         style={{
-          backgroundColor: '#f7140c',
           textAlign: 'left',
           maxWidth: '800px',
         }}
       >
-        <StyledText style={{ justifyContent: 'left', textAlign: 'center', paddingRight: 75 }}>
-          Your Current Claimable Balance {claimableBalance}
-        </StyledText>
-        {loading ? <Spin indicator={antIcon} className="add-spinner" /> : ''}
-        <StyledText style={{ justifyContent: 'right', textAlign: 'center' }}>
-          You have Earned in total ${PastClaims * 1.4}
-        </StyledText>
-      </GreyCard>
-      <p></p>
-      <GreyCard
-        style={{
-          textAlign: 'left',
-          maxWidth: '800px',
-        }}
-      >
-        <StyledText2 style={{ paddingRight: 120, paddingLeft: 10, paddingBottom: 50, position: 'relative' }}>
+        <StyledText2 style={{ paddingRight: 120, paddingLeft: 10, paddingBottom: 50 }}>
           You have Earned {''} {PastClaims / 1.2} {''} Happy Meals!
-        </StyledText2>
-        <StyledImg
+        </StyledText2>{' '}
+        <Styledimage
           style={{ justifyContent: 'right' }}
           src={happymeal}
           height={75}
           width={150}
           alt="happymeal"
-        ></StyledImg>
-      </GreyCard>
-      <p></p>
-      <GreyCard
-        style={{
-          textAlign: 'left',
-          maxWidth: '800px',
-        }}
-      >
-        <StyledText2 style={{ paddingRight: 120, paddingLeft: 10, paddingBottom: 15 }}>
-          <p></p>
-          You have Earned {''} {PastClaims / 0.1} {''} Chicken Nuggets!{' '}
-        </StyledText2>{' '}
-        <StyledImg
+        ></Styledimage>
+        <StyledText4 style={{ paddingRight: 120, paddingLeft: 10, paddingBottom: 15 }}>
+          You have Earned {''} {PastClaims / 0.1} {''} Chicken Nuggets!
+        </StyledText4>
+        <Styledimage2
           style={{ justifyContent: 'right', textAlign: 'center' }}
-          src={chickennuggets}
+          src={Nuggies}
           height={100}
           width={150}
-          alt="chickennuggets"
-        ></StyledImg>
+          alt="nuggies"
+        ></Styledimage2>
       </GreyCard>
       <p></p>
       <GreyCard
@@ -215,6 +164,9 @@ const Funcalculations = () => {
         <StyledText style={{ alignItems: 'center' }}>
           {' '}
           Total Rewards Claimed {''} {projectTotal}{' '}
+        </StyledText>
+        <StyledText style={{ justifyContent: 'right', textAlign: 'center' }}>
+          You have Earned in total ${PastClaims * 1.4}
         </StyledText>
       </GreyCard>
     </>
