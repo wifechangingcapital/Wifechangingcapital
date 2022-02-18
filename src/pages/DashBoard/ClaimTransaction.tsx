@@ -3,16 +3,19 @@ import { Contract } from '@ethersproject/contracts'
 import { Web3Provider } from '@ethersproject/providers'
 import { useWeb3React } from '@web3-react/core'
 import { Spin } from 'antd'
-import { GreyCard } from 'components/Card'
+import { RedCard } from 'components/Card'
 //import { RowBetween } from 'components/Row'
 import useActiveWeb3React from 'hooks/useActiveWeb3React'
 import React, { useCallback, useState } from 'react'
 import styled from 'styled-components/macro'
 
+import header from '../../assets/images/header.png'
 const ClaimButton = styled.button`
   position: relative;
-  right: 200px;
-  bottom: 30px;
+  display: 'block';
+  right: 45px;
+  left: 527px;
+  bottom: 155px;
   padding: 10px 40px;
   border-radius: 25px;
   background-image: linear-gradient(45deg, rgb(255, 0, 0) 0%, rgb(255, 148, 0) 70%, rgb(255, 253, 43) 100%);
@@ -22,13 +25,19 @@ const ClaimButton = styled.button`
   font-size: 12px;
   font-weight: bold;
 `
+const StyledImg = styled.img`
+  justify-content: 'right';
+  position: relative;
+  margin-bottom: 34px;
+`
 // left: 600px;
 //top: 50px;
 const DonateButton = styled.button`
   padding: 10px 4px;
+  display: 'block';
   position: relative;
-  left: 200px;
-  top: 25px;
+  left: 525px;
+  bottom: 175px;
   border-radius: 25px;
   background-image: linear-gradient(45deg, rgb(255, 0, 0) 0%, rgb(255, 148, 0) 70%, rgb(255, 253, 43) 100%);
   box-shadow: rgb(0, 0, 0) 0px 0px 7px 1px;
@@ -94,7 +103,6 @@ const ClaimTransaction = () => {
       const contract = new Contract(contractaddress, abi, signer)
       const ClaimBalance = await contract.approve(account, 1) //.claim(account,amount)
       const Claimtxid = await ClaimBalance
-      console.log({ message: `https://explorer.solana.com/tx/${Claimtxid}` })
 
       return Claimtxid
       /////
@@ -108,21 +116,29 @@ const ClaimTransaction = () => {
 
   return (
     <>
-      <GreyCard
+      <RedCard
         style={{
           fontSize: '12x',
           backgroundColor: '#f7140c',
-          boxShadow: '0 0px 0px 4px rgba(0, 0, 0, 1)',
-          borderRadius: '20px',
+          maxWidth: '800px',
+          maxHeight: 200,
         }}
       >
-        {' '}
-        <DonateButton onClick={handleDonate}>Donate to Charity</DonateButton>
-        <p></p>
+        <StyledImg
+          style={{ paddingBottom: 10, alignItems: 'left' }}
+          src={header}
+          height={200}
+          width={400}
+          alt="eader"
+        ></StyledImg>
+
+        <DonateButton style={{ display: 'block' }} onClick={handleDonate}>
+          Donate to Charity
+        </DonateButton>
         <ClaimButton color="secondary" disabled={!account || loading} onClick={handleClaim}>
           {loading ? <Spin indicator={antIcon} className="add-spinner" /> : 'Claim'}
         </ClaimButton>
-      </GreyCard>
+      </RedCard>
     </>
   )
 }

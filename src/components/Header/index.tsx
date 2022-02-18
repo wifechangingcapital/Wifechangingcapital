@@ -6,7 +6,6 @@ import useActiveWeb3React from 'hooks/useActiveWeb3React'
 //import useTheme from 'hooks/useTheme'
 import { darken } from 'polished'
 import { NavLink } from 'react-router-dom'
-import { Text } from 'rebass'
 import { useShowClaimPopup, useToggleSelfClaimModal } from 'state/application/hooks'
 import { useUserHasAvailableClaim } from 'state/claim/hooks'
 import { useUserHasSubmittedClaim } from 'state/transactions/hooks'
@@ -153,10 +152,15 @@ const UNIWrapper = styled.span`
   }
 `
 
-const BalanceText = styled(Text)`
-  ${({ theme }) => theme.mediaWidth.upToExtraSmall`
-    display: none;
-  `};
+//const BalanceText = styled(Text)`
+//  ${({ theme }) => theme.mediaWidth.upToExtraSmall`
+//    display: none;
+//  `};
+//`
+
+const BalanceText = styled.text`
+  color: #000000;
+  font-size: '18px';
 `
 
 const Title = styled.a`
@@ -322,7 +326,7 @@ export default function Header() {
           )}
           <AccountElement active={!!account}>
             {account && userEthBalance ? (
-              <BalanceText style={{ flexShrink: 0, userSelect: 'none' }} pl="0.75rem" pr="0.5rem" fontWeight={500}>
+              <BalanceText style={{ flexShrink: 0, userSelect: 'none' }}>
                 <Trans>
                   {userEthBalance?.toSignificant(3)} {nativeCurrencySymbol}
                 </Trans>

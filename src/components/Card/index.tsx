@@ -19,11 +19,11 @@ export const LightGreyCard = styled(Card)`
 `
 
 export const GreyCard = styled(Card)`
-  background-color: ${({ theme }) => theme.bg3};
+  background-image: linear-gradient(to right, rgb(255, 25, 25) 0%, rgb(255, 163, 5) 21%, rgb(250, 160, 5) 100%);
 `
 
-export const DarkGreyCard = styled(Card)`
-  background-color: ${({ theme }) => theme.bg2};
+export const RedCard = styled(Card)`
+  background-color: #ff0000;
 `
 
 export const DarkCard = styled(Card)`

@@ -5,7 +5,7 @@ import { CurrencyAmount, Fraction, Percent, Price, Token } from '@uniswap/sdk-co
 import { FeeAmount, Pool, Position, priceToClosestTick, TickMath } from '@uniswap/v3-sdk'
 import Badge, { BadgeVariant } from 'components/Badge'
 import { ButtonConfirmed } from 'components/Button'
-import { BlueCard, DarkGreyCard, LightCard, YellowCard } from 'components/Card'
+import { BlueCard, GreyCard, LightCard, YellowCard } from 'components/Card'
 import DoubleCurrencyLogo from 'components/DoubleLogo'
 import FeeSelector from 'components/FeeSelector'
 import RangeSelector from 'components/RangeSelector'
@@ -585,7 +585,7 @@ function V2PairMigration({
           ) : null}
 
           {position ? (
-            <DarkGreyCard>
+            <GreyCard>
               <AutoColumn gap="md">
                 <LiquidityInfo token0Amount={position.amount0} token1Amount={position.amount1} />
                 {chainId && refund0 && refund1 ? (
@@ -600,7 +600,7 @@ function V2PairMigration({
                   </ThemedText.Black>
                 ) : null}
               </AutoColumn>
-            </DarkGreyCard>
+            </GreyCard>
           ) : null}
 
           <AutoColumn gap="12px">

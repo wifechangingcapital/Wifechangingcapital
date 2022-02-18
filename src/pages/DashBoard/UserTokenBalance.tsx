@@ -13,6 +13,7 @@ import { String } from 'typescript-string-operations'
 const Newinput = styled.input`
   border: 2px solid;
   border-radius: 25px;
+  text-shadow: 0px 1px 0px rgba(0, 0, 0, 0.2);
   font-size: 12px;
   text-color: #ffffff;
   margin: 0.25rem;
@@ -22,8 +23,10 @@ const Newinput = styled.input`
   background: #ff3333;
 `
 const Styledtext = styled.text`
+  text-shadow: 0px 1px 0px rgba(0, 0, 0, 0.2);
   font-size: 18px;
   text-color: #ffffff;
+  font-weight: bold;
 `
 const antIcon = <LoadingOutlined style={{ fontSize: 24 }} spin />
 
@@ -113,7 +116,10 @@ const UserTokenBalance = () => {
   return (
     <>
       <GreyCard
-        style={{ backgroundColor: '#f7140c', boxShadow: '0 0px 0px 4px rgba(0, 0, 0, 1)', borderRadius: '20px' }}
+        style={{
+          backgroundColor: '#f7140c',
+          maxWidth: '800px',
+        }}
       >
         <Styledtext style={{ justifyContent: 'right', textAlign: 'left', paddingRight: 250 }}>
           {' '}
@@ -128,19 +134,21 @@ const UserTokenBalance = () => {
         style={{
           backgroundColor: '#f7140c',
           textAlign: 'left',
-          boxShadow: '0 0px 0px 4px rgba(0, 0, 0, 1)',
-          borderRadius: '20px',
+          maxWidth: '800px',
         }}
       >
-        Reference Volume{' '}
+        <Styledtext> Reference Volume </Styledtext>
         <Newinput
           type="Number"
           placeholder="Sample Reference Volume"
           onChange={(e: any) => setReferenceVolume(e.target.value)}
         ></Newinput>{' '}
         <p></p>
-        Your Potential Rewards {((userBalance / 10000) * ReferenceVolume * 0.2).toFixed(2)}
-        {loading ? <Spin indicator={antIcon} className="add-spinner" /> : ''}
+        <Styledtext>
+          {' '}
+          Your Potential Rewards {''} {((userBalance / 10000) * ReferenceVolume * 0.2).toFixed(2)}
+          {loading ? <Spin indicator={antIcon} className="add-spinner" /> : ''}{' '}
+        </Styledtext>
       </GreyCard>
     </>
   )

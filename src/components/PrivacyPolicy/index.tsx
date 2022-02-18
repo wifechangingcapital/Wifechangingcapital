@@ -1,5 +1,5 @@
 import { Trans } from '@lingui/macro'
-import Card, { DarkGreyCard } from 'components/Card'
+import Card, { GreyCard } from 'components/Card'
 import Row, { AutoRow, RowBetween } from 'components/Row'
 import { useEffect, useRef } from 'react'
 import { ArrowDown, Info, X } from 'react-feather'
@@ -155,7 +155,7 @@ export function PrivacyPolicy() {
         </ThemedText.Main>
         <AutoColumn gap="12px">
           {EXTERNAL_APIS.map(({ name, description }, i) => (
-            <DarkGreyCard key={i}>
+            <GreyCard key={i}>
               <AutoColumn gap="8px">
                 <AutoRow gap="4px">
                   <Info size={18} />
@@ -165,7 +165,7 @@ export function PrivacyPolicy() {
                 </AutoRow>
                 <ThemedText.Main fontSize={14}>{description}</ThemedText.Main>
               </AutoColumn>
-            </DarkGreyCard>
+            </GreyCard>
           ))}
           <Row justify="center" marginBottom="1rem">
             <ExternalLink href="https://help.uniswap.org/en/articles/5675203-terms-of-service-faq">

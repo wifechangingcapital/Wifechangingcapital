@@ -61,7 +61,7 @@ function colors(darkMode: boolean): Colors {
     black,
 
     // text
-    text1: darkMode ? '#FFFFFF' : '#000000',
+    text1: darkMode ? '#FFFFFF' : '#FFFFFF', //edited for white text
     text2: darkMode ? '#C3C5CB' : '#565A69',
     text3: darkMode ? '#8F96AC' : '#6E727D',
     text4: darkMode ? '#B2B9D2' : '#C3C5CB',
@@ -209,11 +209,14 @@ export const ThemedText = {
   },
 }
 // background-color: ${({ theme }) => theme.red3} !important;
+//color: ${({ theme }) => theme.text1};
 export const ThemedGlobalStyle = createGlobalStyle`
 html {
-  color: ${({ theme }) => theme.text1};
+  
  
- background-image: ${`url(${mcdegenbackground})`}
+ background-image: ${`url(${mcdegenbackground})`};
+ 
+ color: ${({ theme }) => theme.text1};
 
 }
 
