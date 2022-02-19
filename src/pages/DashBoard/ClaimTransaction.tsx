@@ -3,9 +3,10 @@ import { Contract } from '@ethersproject/contracts'
 import { Web3Provider } from '@ethersproject/providers'
 import { useWeb3React } from '@web3-react/core'
 import { Spin } from 'antd'
-import { RedCard } from 'components/Card'
+import { GreyCard } from 'components/Card'
 //import { RowBetween } from 'components/Row'
 import useActiveWeb3React from 'hooks/useActiveWeb3React'
+//import useAddTokenToMetamask from 'hooks/useAddTokenToMetamask' - /////from transaction cofrimation modal index line 127
 import React, { useCallback, useState } from 'react'
 import styled from 'styled-components/macro'
 
@@ -15,6 +16,7 @@ const ClaimButton = styled.button`
   display: 'block';
   right: 45px;
   left: 527px;
+  text-color: #ffffff;
   bottom: 155px;
   padding: 10px 40px;
   border-radius: 25px;
@@ -24,6 +26,10 @@ const ClaimButton = styled.button`
   font-family: Verdana, Geneva, sans-serif;
   font-size: 12px;
   font-weight: bold;
+  transition: border-color 0.5s ease-out;
+  &:hover {
+      background-color: #ff9d1c;
+      color: black;
 `
 const StyledImg = styled.img`
   justify-content: 'right';
@@ -36,6 +42,7 @@ const DonateButton = styled.button`
   padding: 10px 4px;
   display: 'block';
   position: relative;
+  font-color: #ffffff;
   left: 525px;
   bottom: 175px;
   border-radius: 25px;
@@ -45,6 +52,10 @@ const DonateButton = styled.button`
   font-family: Verdana, Geneva, sans-serif;
   font-size: 12px;
   font-weight: bold;
+  transition: border-color 0.5s ease-out;
+  &:hover {
+      background-color: #ff9d1c;
+      color: black;
 `
 const antIcon = <LoadingOutlined style={{ fontSize: 24 }} spin />
 
@@ -56,6 +67,7 @@ const ClaimTransaction = () => {
   const { library } = context
   const provider = new Web3Provider(library.provider)
   const signer = provider.getSigner()
+  //const { addToken, success } = useAddTokenToMetamask(currencyToAdd)
 
   const handleDonate = useCallback(async () => {
     if (showConnectAWallet) {
@@ -116,12 +128,13 @@ const ClaimTransaction = () => {
 
   return (
     <>
-      <RedCard
+      <GreyCard
         style={{
+          backgroundColor: '#f70000',
           fontSize: '12x',
-          backgroundColor: '#f7140c',
           maxWidth: '800px',
           maxHeight: 200,
+          marginBottom: '10px',
         }}
       >
         <StyledImg
@@ -138,7 +151,7 @@ const ClaimTransaction = () => {
         <ClaimButton color="secondary" disabled={!account || loading} onClick={handleClaim}>
           {loading ? <Spin indicator={antIcon} className="add-spinner" /> : 'Claim'}
         </ClaimButton>
-      </RedCard>
+      </GreyCard>
     </>
   )
 }

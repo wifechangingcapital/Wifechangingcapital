@@ -65,7 +65,7 @@ const AccountGroupingRow = styled.div`
   justify-content: space-between;
   align-items: center;
   font-weight: 400;
-  color: ${({ theme }) => theme.text1};
+  color: ${({ theme }) => theme.text2};
 
   div {
     ${({ theme }) => theme.flexRowNoWrap}
@@ -159,7 +159,7 @@ const WalletName = styled.div`
   width: initial;
   font-size: 0.825rem;
   font-weight: 500;
-  color: ${({ theme }) => theme.text3};
+  color: ${({ theme }) => theme.text2};
 `
 
 const IconWrapper = styled.div<{ size?: number }>`
@@ -391,7 +391,7 @@ export default function AccountDetails({
         </LowerSection>
       ) : (
         <LowerSection>
-          <ThemedText.Body color={theme.text1}>
+          <ThemedText.Body color={theme.text2}>
             <Trans>Your transactions will appear here...</Trans>
           </ThemedText.Body>
         </LowerSection>

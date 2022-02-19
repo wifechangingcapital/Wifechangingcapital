@@ -20,6 +20,9 @@ const StyledText = styled.text`
   text-shadow: 0px 1px 0px rgba(0, 0, 0, 0.2);
   position: relative;
   font-weight: bold;
+  left: 1px;
+  display: block;
+  top: 25px;
 `
 
 const StyledText2 = styled.text`
@@ -28,6 +31,8 @@ const StyledText2 = styled.text`
   text-shadow: 0px 1px 0px rgba(0, 0, 0, 0.2);
   position: relative;
   font-weight: bold;
+  display: block;
+  top: 25px;
 `
 
 const StyledText4 = styled.text`
@@ -41,13 +46,15 @@ const Styledimage = styled.img`
   max-width: 50px;
   max-height: 50px;
   position: relative;
-  left: 240px;
+  left: 600px;
+  bottom: 15px;
 `
 const Styledimage2 = styled.img`
   max-width: 50px;
   max-height: 50px;
-  left: 200px;
+  left: 600px;
   position: relative;
+  bottom: 15px;
 `
 const Funcalculations = () => {
   //const [loading, setLoading] = useState(false)
@@ -130,30 +137,30 @@ const Funcalculations = () => {
         style={{
           textAlign: 'left',
           maxWidth: '800px',
+          marginBottom: '10px',
         }}
       >
-        <StyledText2 style={{ paddingRight: 120, paddingLeft: 10, paddingBottom: 50 }}>
+        <StyledText2 style={{ paddingBottom: 3 }}>
           You have Earned {''} {PastClaims / 1.2} {''} Happy Meals!
         </StyledText2>{' '}
         <Styledimage
-          style={{ justifyContent: 'right' }}
+          style={{ justifyContent: 'right', paddingRight: 1 }}
           src={happymeal}
           height={75}
           width={150}
           alt="happymeal"
         ></Styledimage>
-        <StyledText4 style={{ paddingRight: 120, paddingLeft: 10, paddingBottom: 15 }}>
-          You have Earned {''} {PastClaims / 0.1} {''} Chicken Nuggets!
-        </StyledText4>
+        <StyledText style={{ paddingBottom: 1 }}>
+          {''} You have Earned {''} {PastClaims / 0.1} {''} Chicken Nuggets!
+        </StyledText>
         <Styledimage2
-          style={{ justifyContent: 'right', textAlign: 'center' }}
+          style={{ justifyContent: 'right' }}
           src={Nuggies}
           height={100}
           width={150}
           alt="nuggies"
         ></Styledimage2>
       </GreyCard>
-      <p></p>
       <GreyCard
         style={{
           textAlign: 'left',
@@ -161,13 +168,13 @@ const Funcalculations = () => {
         }}
       >
         {' '}
-        <StyledText style={{ alignItems: 'center' }}>
+        <StyledText4 style={{ alignItems: 'center' }}>
           {' '}
           Total Rewards Claimed {''} {projectTotal}{' '}
-        </StyledText>
-        <StyledText style={{ justifyContent: 'right', textAlign: 'center' }}>
+        </StyledText4>
+        <StyledText4 style={{ justifyContent: 'right', textAlign: 'center', paddingLeft: 50 }}>
           You have Earned in total ${PastClaims * 1.4}
-        </StyledText>
+        </StyledText4>
       </GreyCard>
     </>
   )

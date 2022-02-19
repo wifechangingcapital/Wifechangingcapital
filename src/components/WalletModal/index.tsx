@@ -22,7 +22,7 @@ import { ApplicationModal } from '../../state/application/reducer'
 import { ExternalLink, ThemedText } from '../../theme'
 import { isMobile } from '../../utils/userAgent'
 import AccountDetails from '../AccountDetails'
-import Card, { LightCard } from '../Card'
+import Card, { GreyCard } from '../Card' //LightCard
 import Modal from '../Modal'
 import Option from './Option'
 import PendingView from './PendingView'
@@ -110,8 +110,8 @@ const HoverText = styled.div`
 `
 
 const LinkCard = styled(Card)`
-  background-color: ${({ theme }) => theme.bg1};
-  color: ${({ theme }) => theme.text3};
+  background-color: #FFFFFF;
+  color: #000000
 
   :hover {
     cursor: pointer;
@@ -390,18 +390,18 @@ export default function WalletModal({
 
         <ContentWrapper>
           <AutoColumn gap="16px">
-            <LightCard>
+            <GreyCard>
               <AutoRow style={{ flexWrap: 'nowrap' }}>
                 <ThemedText.Black fontSize={14}>
                   <Trans>
-                    By connecting a wallet, you agree to Uniswap Labs’{' '}
+                    By connecting a wallet, you agree to Mcdegens{' '}
                     <ExternalLink href="https://uniswap.org/terms-of-service/">Terms of Service</ExternalLink> and
-                    acknowledge that you have read and understand the Uniswap{' '}
+                    acknowledge that you have read and understand the{' '}
                     <ExternalLink href="https://uniswap.org/disclaimer/">Protocol Disclaimer</ExternalLink>.
                   </Trans>
                 </ThemedText.Black>
               </AutoRow>
-            </LightCard>
+            </GreyCard>
             {walletView === WALLET_VIEWS.PENDING ? (
               <PendingView
                 connector={pendingWallet}

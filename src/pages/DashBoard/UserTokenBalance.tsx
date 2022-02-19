@@ -21,6 +21,7 @@ const Newinput = styled.input`
   padding: 0.5rem;
   transition: border-color 0.5s ease-out;
   background: #ff3333;
+  font-weight: bold;
 `
 const Styledtext = styled.text`
   text-shadow: 0px 1px 0px rgba(0, 0, 0, 0.2);
@@ -33,14 +34,12 @@ const antIcon = <LoadingOutlined style={{ fontSize: 24 }} spin />
 const UserTokenBalance = () => {
   const [loading, setLoading] = useState(false)
   const { account } = useActiveWeb3React()
-  //here I am unsure If I just use the chainid read from the wallet if that will suffice for a provider, I believe so
   const showConnectAWallet = Boolean(!account)
   const [userBalance, setuserBalance] = useState(Number)
   const [claimableBalance, setclaimableBalance] = useState(String)
   const [ReferenceVolume, setReferenceVolume] = useState(Number)
   const context = useWeb3React()
   const { library } = context
-  //// put in if !chainid=1 return 'connect to mainnet eth' else return [
   useEffect(() => {
     async function FetchBalance() {
       if (showConnectAWallet) {
@@ -117,24 +116,23 @@ const UserTokenBalance = () => {
     <>
       <GreyCard
         style={{
-          backgroundColor: '#f7140c',
           maxWidth: '800px',
+          marginBottom: '10px',
         }}
       >
         <Styledtext style={{ justifyContent: 'right', textAlign: 'left', paddingRight: 250 }}>
           {' '}
-          Your Claimable USDC {claimableBalance}
+          Your Claimable USDC {''} {claimableBalance}
         </Styledtext>
         <Styledtext style={{ justifyContent: 'right', textAlign: 'right' }}>
-          Your Token Balance {userBalance}
+          Your Token Balance {''} {userBalance}
         </Styledtext>
       </GreyCard>
-      <p></p>
       <GreyCard
         style={{
-          backgroundColor: '#f7140c',
           textAlign: 'left',
           maxWidth: '800px',
+          marginBottom: '10px',
         }}
       >
         <Styledtext> Reference Volume </Styledtext>
@@ -155,7 +153,3 @@ const UserTokenBalance = () => {
 }
 
 export default UserTokenBalance
-//for sending a swap transaction that first send a fee to a company wallet you would
-// do a button that on click runns that function that
-//reads the amount of the transaction and makes a raw transactionthat sends bnb or eth to another wallet
-// htne executes the other transaction, signed once

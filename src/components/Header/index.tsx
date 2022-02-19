@@ -209,7 +209,7 @@ const StyledNavLink = styled(NavLink).attrs({
     font-weight: 600;
     justify-content: center;
     color: #000000;
-    background-color: ${({ theme }) => theme.bg1};
+    background-color: ${({ theme }) => theme.bg0};
   }
   :hover,
   :focus {

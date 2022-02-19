@@ -35,7 +35,15 @@ export default function DashBoardComponent() {
   } else {
     if (showConnectAWallet) {
       return (
-        <GreyCard>
+        <GreyCard
+          style={{
+            fontSize: '20px',
+            fontWeight: 'bold',
+            textAlign: 'center',
+            backgroundColor: '#fff700',
+            maxWidth: '800px',
+          }}
+        >
           {' '}
           <StyledText style={{ justifyContent: 'center' }}> Connect a wallet to continue </StyledText>{' '}
         </GreyCard>
@@ -44,9 +52,7 @@ export default function DashBoardComponent() {
       return (
         <>
           <ClaimTransaction></ClaimTransaction>
-          <p> </p>
           <UserTokenBalance></UserTokenBalance>
-          <p></p>
           <Funcalculations></Funcalculations>
         </>
       )
