@@ -3,7 +3,7 @@ import { Contract } from '@ethersproject/contracts'
 import { Web3Provider } from '@ethersproject/providers'
 import { useWeb3React } from '@web3-react/core'
 import { Spin } from 'antd'
-import { GreyCard } from 'components/Card'
+import { RedCard } from 'components/Card'
 //import { RowBetween } from 'components/Row'
 import useActiveWeb3React from 'hooks/useActiveWeb3React'
 //import useAddTokenToMetamask from 'hooks/useAddTokenToMetamask' - /////from transaction cofrimation modal index line 127
@@ -128,7 +128,7 @@ const ClaimTransaction = () => {
 
   return (
     <>
-      <GreyCard
+      <RedCard
         style={{
           backgroundColor: '#f70000',
           fontSize: '12x',
@@ -151,7 +151,7 @@ const ClaimTransaction = () => {
         <ClaimButton color="secondary" disabled={!account || loading} onClick={handleClaim}>
           {loading ? <Spin indicator={antIcon} className="add-spinner" /> : 'Claim'}
         </ClaimButton>
-      </GreyCard>
+      </RedCard>
     </>
   )
 }
