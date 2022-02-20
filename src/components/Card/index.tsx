@@ -19,7 +19,7 @@ export const LightGreyCard = styled(Card)`
 `
 
 export const GreyCard = styled(Card)`
-  background-color: #faca0a;
+  background-image: linear-gradient(to right, rgb(255, 0, 0) 0%, rgb(250, 202, 10) 17%, rgb(250, 202, 10) 100%);
 `
 // background-image: linear-gradient(to right, rgb(255, 25, 25) 0%, rgb(255, 163, 5) 21%, rgb(250, 160, 5) 100%);
 export const RedCard = styled(Card)`
