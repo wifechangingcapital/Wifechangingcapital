@@ -1,8 +1,8 @@
 /* eslint-disable simple-import-sort/imports */
-import { PieChartOutlined } from '@ant-design/icons'
+//import { PieChartOutlined } from '@ant-design/icons'
 import { Trans } from '@lingui/macro'
 import useScrollPosition from '@react-hook/window-scroll'
-import { Button, Menu } from 'antd'
+//import { Button, Menu } from 'antd'
 import { CHAIN_INFO } from 'constants/chainInfo'
 import { SupportedChainId } from 'constants/chains'
 import useActiveWeb3React from 'hooks/useActiveWeb3React'
@@ -10,9 +10,6 @@ import useActiveWeb3React from 'hooks/useActiveWeb3React'
 import { darken } from 'polished'
 import { useState } from 'react'
 import { NavLink } from 'react-router-dom'
-import { useShowClaimPopup, useToggleSelfClaimModal } from 'state/application/hooks'
-import { useUserHasAvailableClaim } from 'state/claim/hooks'
-import { useUserHasSubmittedClaim } from 'state/transactions/hooks'
 //import { useDarkModeManager } from 'state/user/hooks'
 import { useNativeCurrencyBalances } from 'state/wallet/hooks'
 import styled from 'styled-components/macro'
@@ -24,7 +21,7 @@ import { ExternalLink } from '../../theme'
 import Row from '../Row'
 import Web3Status from '../Web3Status'
 import NetworkSelector from './NetworkSelector'
-import { Link } from 'react-scroll'
+//import { Link } from 'react-scroll'
 
 const HeaderFrame = styled.div<{ showBackground: boolean }>`
   display: grid;
@@ -246,21 +243,8 @@ const StyledExternalLink = styled(ExternalLink).attrs({
 
 export default function Header() {
   const { account, chainId } = useActiveWeb3React()
-  const { SubMenu } = Menu
   const [collapse, setcollapse] = useState(Boolean)
   const userEthBalance = useNativeCurrencyBalances(account ? [account] : [])?.[account ?? '']
-  // const [darkMode] = useDarkModeManager()
-  // const { white, black } = useTheme()
-
-  const toggleClaimModal = useToggleSelfClaimModal()
-  const mcdegenurl = 'https://mcdegens.com'
-
-  const availableClaim: boolean = useUserHasAvailableClaim(account)
-
-  const { claimTxn } = useUserHasSubmittedClaim(account ?? undefined)
-
-  const showClaimPopup = useShowClaimPopup()
-
   const scrollY = useScrollPosition()
 
   const {
@@ -271,29 +255,6 @@ export default function Header() {
   //{React.createElement(this.state.collapsed ? MenuUnfoldOutlined : MenuFoldOutlined)}
   return (
     <>
-      <div style={{ width: 256, backgroundColor: '#000000' }}>
-        <Button type="primary" onClick={() => setcollapse(true)} style={{ marginBottom: 16 }}></Button>
-        <Menu
-          defaultSelectedKeys={['1']}
-          defaultOpenKeys={['sub1']}
-          mode="inline"
-          theme="dark"
-          inlineCollapsed={collapse}
-        >
-          <Menu.Item key="1" icon={<PieChartOutlined />}>
-            {' '}
-            <Link activeClass="active" to="home" spy={true} smooth={true}>
-              Home
-            </Link>
-          </Menu.Item>
-          <Menu.Item key="1" icon={<PieChartOutlined />}>
-            {' '}
-            <Link to="about" spy={true} smooth={true}>
-              Bottom
-            </Link>
-          </Menu.Item>
-        </Menu>
-      </div>
       <HeaderFrame showBackground={scrollY > 1005}>
         <UniIcon>
           <Logo src={mcdegenlogo} alt="logo" width="50px" height="100%"></Logo>

@@ -1,11 +1,15 @@
-import { SupportedChainId } from 'constants/chains'
-import useActiveWeb3React from 'hooks/useActiveWeb3React'
+import './styles.css'
+
+import { Row } from 'antd'
 import styled from 'styled-components/macro'
 
-import { GreyCard } from '../../components/Card'
+import { LightGreyCard } from '../../components/Card'
+import { SupportedChainId } from '../../constants/chains'
+import useActiveWeb3React from '../../hooks/useActiveWeb3React'
+import Buyback from './Buyback'
 //import ClaimTransaction from './ClaimTransaction'
-import Metrics from './PriceCalls'
-//import Funcalculations from './FunCalculations'
+import CompanyMetrics from './Metrics'
+import NFTtable from './NFT'
 import UserTokenBalance from './UserTokenBalance'
 
 export default function DashBoardComponent() {
@@ -20,7 +24,7 @@ export default function DashBoardComponent() {
   `
   if (isNotOnMainnet) {
     return (
-      <GreyCard
+      <LightGreyCard
         style={{
           fontSize: '20px',
           fontWeight: 'bold',
@@ -31,12 +35,12 @@ export default function DashBoardComponent() {
       >
         {' '}
         <StyledText style={{ justifyContent: 'center' }}> Please Connect to Ethereum Mainnet</StyledText>{' '}
-      </GreyCard>
+      </LightGreyCard>
     )
   } else {
     if (showConnectAWallet) {
       return (
-        <GreyCard
+        <LightGreyCard
           style={{
             fontSize: '20px',
             fontWeight: 'bold',
@@ -47,20 +51,21 @@ export default function DashBoardComponent() {
         >
           {' '}
           <StyledText style={{ justifyContent: 'center' }}> Connect a wallet to continue </StyledText>{' '}
-        </GreyCard>
+        </LightGreyCard>
       )
     } else {
       return (
         <>
           <UserTokenBalance></UserTokenBalance>
-          <Metrics></Metrics>
-          <GreyCard></GreyCard>
-          <GreyCard>
-            {' '}
-            la <p></p> la la la la
-          </GreyCard>
-          <GreyCard></GreyCard>
-          <GreyCard className={'about'}></GreyCard>
+          <Row>
+            <div className={'flex-box-container'}>
+              <CompanyMetrics></CompanyMetrics>
+            </div>
+            <div className={'flex-box-container'}>
+              <NFTtable></NFTtable>
+            </div>
+          </Row>
+          <Buyback></Buyback>
         </>
       )
     }
