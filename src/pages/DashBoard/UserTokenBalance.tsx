@@ -1,18 +1,25 @@
 // eslint-disable-next-line no-restricted-imports
-import 'antd/dist/antd.css'
+import './styles.css'
+import 'animate.css'
 
 import { LoadingOutlined } from '@ant-design/icons'
 import { Contract } from '@ethersproject/contracts'
 import { Web3Provider } from '@ethersproject/providers'
 import { formatEther } from '@ethersproject/units'
 import { useWeb3React } from '@web3-react/core'
-import { Card, Col, Row } from 'antd'
 import { LightGreyCard } from 'components/Card'
 import useActiveWeb3React from 'hooks/useActiveWeb3React'
 import React, { useEffect, useState } from 'react'
 import styled from 'styled-components/macro'
 import { String } from 'typescript-string-operations'
 
+import mcdegenlogo from '../../assets/images/mcdegenlogo.png'
+
+const StyledImg = styled.img`
+  justify-content: 'left';
+  position: relative;
+  margin-bottom: 34px;
+`
 const Newinput = styled.input`
   border: 2px solid;
   border-radius: 25px;
@@ -27,10 +34,12 @@ const Newinput = styled.input`
   font-weight: bold;
 `
 const Styledtext = styled.text`
-  text-shadow: 0px 1px 0px rgba(0, 0, 0, 0.2);
+  position: relative;
   font-size: 18px;
-  text-color: #ffffff;
   font-weight: bold;
+  text-align: center;
+  maximum-width: 200px;
+  font-family: Verdana, sans-serif;
 `
 const antIcon = <LoadingOutlined style={{ fontSize: 24 }} spin />
 
@@ -188,84 +197,60 @@ const UserTokenBalance = () => {
   const balancevalueinusd = JpegPriceInUsd * userBalance
   return (
     <>
-      <div className={'flexbox-container'}>
-        <LightGreyCard
-          style={{
-            maxWidth: 700,
-            width: 'auto',
-            height: 'auto',
-            position: 'relative',
-            right: 375,
-            boxShadow: '0px 0px 10px 1px rgba(0,0,0,0.40)',
-          }}
-        >
-          <h1 style={{ textAlign: 'center', fontWeight: 'bold', fontFamily: 'Geneva, Verdana, sans-serif' }}>
-            Company Statistics
-          </h1>
-          <Card.Grid hoverable={false} style={gridStyle}>
-            <Row>
-              <Col span={12}>NETWORK</Col>
-              <Col span={12}>VOLUME (USD)</Col>
-            </Row>
-          </Card.Grid>
-          <Card.Grid hoverable={false} style={gridStyle}>
-            <Row>
-              <Col span={12}>NETWORK</Col>
-              <Col span={12}>$VOLUME (USD)</Col>
-            </Row>
-          </Card.Grid>
-          <Card.Grid hoverable={false} style={gridStyle}>
-            <Row>
-              <Col span={12}>Etherum</Col>
-              <Col span={12}>$304,34093.00</Col>
-            </Row>
-          </Card.Grid>
-          <Card.Grid hoverable={false} style={gridStyle}>
-            <Row>
-              <Col span={12}>Polygon</Col>
-              <Col span={12}>$304,3497.00</Col>
-            </Row>
-          </Card.Grid>
-        </LightGreyCard>
-        <p></p>
-        <LightGreyCard
-          style={{
-            maxWidth: 700,
-            position: 'relative',
-            left: 375,
-            bottom: 244,
-            boxShadow: '0px 0px 10px 1px rgba(0,0,0,0.40)',
-          }}
-        >
-          <h1 style={{ textAlign: 'center', fontWeight: 'bold', fontFamily: 'Geneva, Verdana, sans-serif' }}>
-            User Statistics
-          </h1>
-          <Card.Grid hoverable={false} style={gridStyle}>
-            <Row>
-              <Col span={12}>Your Token Balance</Col>
-              <Col span={12}>{userBalance}</Col>
-            </Row>
-          </Card.Grid>
-          <Card.Grid hoverable={false} style={gridStyle}>
-            <Row>
-              <Col span={12}> Your Balance in USD </Col>
-              <Col span={12}>{balancevalueinusd}</Col>
-            </Row>
-          </Card.Grid>
-          <Card.Grid hoverable={false} style={gridStyle}>
-            <Row>
-              <Col span={12}> Your Claimable Balance</Col>
-              <Col span={12}>{claimableBalance}</Col>
-            </Row>
-          </Card.Grid>
-          <Card.Grid hoverable={false} style={gridStyle}>
-            <Row>
-              <Col span={12}>Your Claimable Balance in USD</Col>
-              <Col span={12}>{claimableBalance}</Col>
-            </Row>
-          </Card.Grid>
-        </LightGreyCard>
-      </div>
+      <LightGreyCard style={{ maxHeight: '400px' }}>
+        <div className={'darktext'}>
+          <h1 style={{ position: 'relative', right: 300 }}>Token Holder Dashboard</h1>
+
+          <div className="flexbox-container">
+            <div className={'flexbox-vertical-container'}>
+              <StyledImg
+                style={{ paddingBottom: 10, marginLeft: '50px', alignItems: 'left' }}
+                src={mcdegenlogo}
+                height={300}
+                width={300}
+                alt="eader"
+              ></StyledImg>
+            </div>
+            <div style={{ position: 'relative', left: 300, bottom: 85 }} className={'flexbox-vertical-container'}>
+              <h1 style={{ textAlign: 'center', fontWeight: 'bold', fontFamily: 'Geneva, Verdana, sans-serif' }}>
+                Company Statistics
+              </h1>
+
+              <div className="flexbox-container">
+                <h3>
+                  <Styledtext
+                    style={{ textAlign: 'center', fontWeight: 'bold', fontFamily: 'Geneva, Verdana, sans-serif' }}
+                  >
+                    NETWORK $VOLUME (USD)
+                  </Styledtext>
+                </h3>
+              </div>
+
+              <h3>
+                <Styledtext
+                  style={{ textAlign: 'center', fontWeight: 'bold', fontFamily: 'Geneva, Verdana, sans-serif' }}
+                >
+                  {' '}
+                  ETHEREUM {''}
+                  {''} $306,038,374,93.56{' '}
+                </Styledtext>
+              </h3>
+
+              <h1 style={{ textAlign: 'center', fontWeight: 'bold', fontFamily: 'Geneva, Verdana, sans-serif' }}>
+                User Statistics
+              </h1>
+
+              <h3 style={{ textAlign: 'center', fontWeight: 'bold', fontFamily: 'Geneva, Verdana, sans-serif' }}>
+                <Styledtext>Token Balance</Styledtext>
+              </h3>
+
+              <h3 style={{ textAlign: 'center', fontWeight: 'bold', fontFamily: 'Geneva, Verdana, sans-serif' }}>
+                <Styledtext>Token Balance Value $</Styledtext>
+              </h3>
+            </div>
+          </div>
+        </div>
+      </LightGreyCard>
     </>
   )
 }

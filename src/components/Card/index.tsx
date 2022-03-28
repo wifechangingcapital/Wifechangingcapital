@@ -27,7 +27,11 @@ export const RedCard = styled(Card)`
 `
 
 export const DarkCard = styled(Card)`
-  background-color: ${({ theme }) => theme.bg0};
+  border-style: solid;
+  background-color: #ffffff;
+  border-width: 1px;
+  border-radius: 4px;
+  border-image: linear-gradient(45deg, rgb(122, 9, 125), rgb(219, 0, 48), rgb(179, 2, 181)) 1;
 `
 
 export const OutlineCard = styled(Card)`

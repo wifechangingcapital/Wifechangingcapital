@@ -178,6 +178,8 @@ export default function CompanyMetrics() {
                   maxWidth: 200,
                   maxHeight: 100,
                   position: 'relative',
+                  height: 'auto',
+                  width: 'auto',
                   left: 10,
                   paddingLeft: 75,
                   paddingTop: 50,
@@ -186,7 +188,7 @@ export default function CompanyMetrics() {
                 }}
               >
                 {' '}
-                MarketCap: {MarketCap}
+                MarketCap: {0}
               </DarkCard>
             </Col>
             <Col span={12}>
@@ -194,6 +196,8 @@ export default function CompanyMetrics() {
                 style={{
                   maxWidth: 200,
                   maxHeight: 100,
+                  height: 'auto',
+                  width: 'auto',
                   position: 'relative',
                   left: 30,
                   paddingLeft: 75,
@@ -203,7 +207,7 @@ export default function CompanyMetrics() {
                 }}
               >
                 {' '}
-                $WCC Price: {JpegPriceInUsd}
+                $WCC Price: {0}
               </DarkCard>
             </Col>
           </Row>
@@ -215,6 +219,8 @@ export default function CompanyMetrics() {
                 style={{
                   maxWidth: 200,
                   maxHeight: 100,
+                  height: 'auto',
+                  width: 'auto',
                   position: 'relative',
                   left: 10,
                   paddingLeft: 75,
@@ -223,7 +229,7 @@ export default function CompanyMetrics() {
                   boxShadow: '0px 0px 10px 1px rgba(0,0,0,0.40)',
                 }}
               >
-                Total Liquidity: {TotalLiquidity}
+                Total Liquidity: {0}
               </DarkCard>
             </Col>
             <Col span={12}>
@@ -231,6 +237,8 @@ export default function CompanyMetrics() {
                 style={{
                   maxWidth: 200,
                   maxHeight: 100,
+                  height: 'auto',
+                  width: 'auto',
                   position: 'relative',
                   left: 30,
                   paddingLeft: 75,

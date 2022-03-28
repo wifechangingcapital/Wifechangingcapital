@@ -1,6 +1,5 @@
 import './styles.css'
 
-import { Row } from 'antd'
 import styled from 'styled-components/macro'
 
 import { LightGreyCard } from '../../components/Card'
@@ -8,7 +7,6 @@ import { SupportedChainId } from '../../constants/chains'
 import useActiveWeb3React from '../../hooks/useActiveWeb3React'
 import Buyback from './Buyback'
 //import ClaimTransaction from './ClaimTransaction'
-import CompanyMetrics from './Metrics'
 import NFTtable from './NFT'
 import UserTokenBalance from './UserTokenBalance'
 
@@ -56,16 +54,18 @@ export default function DashBoardComponent() {
     } else {
       return (
         <>
-          <UserTokenBalance></UserTokenBalance>
-          <Row>
-            <div className={'flex-box-container'}>
-              <CompanyMetrics></CompanyMetrics>
-            </div>
-            <div className={'flex-box-container'}>
+          <div className="animate__animated animate__fadeInDown"></div>
+          <div className={'flexbox-vertical-container'}>
+            <UserTokenBalance></UserTokenBalance>
+            <p></p>
+            <p></p>
+
+            <div className={'blacktext'}>
               <NFTtable></NFTtable>
+
+              <Buyback></Buyback>
             </div>
-          </Row>
-          <Buyback></Buyback>
+          </div>
         </>
       )
     }
