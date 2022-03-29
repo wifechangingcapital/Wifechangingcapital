@@ -1,17 +1,24 @@
-import './styles.css'
-import 'animate.css'
-
 import { Contract } from '@ethersproject/contracts'
 import { Web3Provider } from '@ethersproject/providers'
 import { formatEther } from '@ethersproject/units'
 import { useWeb3React } from '@web3-react/core'
+import { Col, Row } from 'antd'
 import React, { useEffect, useState } from 'react'
+import styled from 'styled-components/macro'
 
-//import styled from 'styled-components/macro'
 import { DarkCard, LightGreyCard } from '../../components/Card'
 import useActiveWeb3React from '../../hooks/useActiveWeb3React'
 
-export default function NFTtable() {
+const Styledtext = styled.text`
+  text-shadow: 0px 1px 0px rgba(0, 0, 0, 0.2);
+  font-size: 22px;
+  text-color: #000000;
+  text-align: 'center';
+  font-weight: bold;
+`
+
+export default function CompanyMetrics() {
+  const [loading, setLoading] = useState(false)
   const { account } = useActiveWeb3React()
   const showConnectAWallet = Boolean(!account)
   const [EthReserves, setEthReserves] = useState(Number)
@@ -30,6 +37,7 @@ export default function NFTtable() {
       }
 
       try {
+        setLoading(true)
         const response = await fetch(
           'https://api-rinkeby.etherscan.io/api?module=contract&action=getabi&address=0xEC33992fd60A350500c543b3B0E1D90fDCaFb10a&apikey=432BW4Y2JX817J6CJAWGHAFTXQNFVXRU2Q'
         ) // Api Key also the pair contract
@@ -46,7 +54,9 @@ export default function NFTtable() {
         return DisplayJpegPrice
       } catch (error) {
         console.log(error)
+        setLoading(false)
       } finally {
+        setLoading(false)
       }
     }
     async function FetchEthReserve() {
@@ -56,6 +66,7 @@ export default function NFTtable() {
       }
 
       try {
+        setLoading(true)
         const response = await fetch(
           'https://api-rinkeby.etherscan.io/api?module=contract&action=getabi&address=0xEC33992fd60A350500c543b3B0E1D90fDCaFb10a&apikey=432BW4Y2JX817J6CJAWGHAFTXQNFVXRU2Q'
         ) // Api Key also the pair contract
@@ -71,7 +82,9 @@ export default function NFTtable() {
         return DisplayEthReserves
       } catch (error) {
         console.log(error)
+        setLoading(false)
       } finally {
+        setLoading(false)
       }
     }
     async function FetchJpegReserve() {
@@ -81,6 +94,7 @@ export default function NFTtable() {
       }
 
       try {
+        setLoading(true)
         const response = await fetch(
           'https://api-rinkeby.etherscan.io/api?module=contract&action=getabi&address=0xEC33992fd60A350500c543b3B0E1D90fDCaFb10a&apikey=432BW4Y2JX817J6CJAWGHAFTXQNFVXRU2Q'
         ) // Api Key also the pair contract
@@ -107,6 +121,7 @@ export default function NFTtable() {
       }
 
       try {
+        setLoading(true)
         const response = await fetch(
           'https://api.etherscan.io/api?module=stats&action=ethprice&apikey=432BW4Y2JX817J6CJAWGHAFTXQNFVXRU2Q'
         ) // Api Key
@@ -144,71 +159,45 @@ export default function NFTtable() {
       .then((result) => setJpegPrice(result))
   }, [account, showConnectAWallet, library.provider])
 
-  //const JpegPriceInUsd = JpegPrice / EthPrice
-  //const MarketCap = [(JpegPrice / EthPrice) * 10000000] // essentially jpegusd price divided by total supply
-  //const ReserveAinUsd = JpegReserves * JpegPriceInUsd
-  //const ReserveBinUsd = EthReserves * EthPrice
-  // const TotalLiquidity = ReserveAinUsd + ReserveBinUsd
+  const JpegPriceInUsd = JpegPrice / EthPrice
+  const MarketCap = [(JpegPrice / EthPrice) * 10000000] // essentially jpegusd price divided by total supply
+  const ReserveAinUsd = JpegReserves * JpegPriceInUsd
+  const ReserveBinUsd = EthReserves * EthPrice
+  const TotalLiquidity = ReserveAinUsd + ReserveBinUsd
   return (
     <>
-      <div className={'darktext'}>
-        <div className="flexbox-container" style={{ position: 'relative' }}>
-          <LightGreyCard
-            style={{
-              position: 'relative',
-              marginRight: '50px',
-              maxWidth: 600,
-              width: 500,
-              boxShadow: '0px 0px 10px 1px rgba(0,0,0,0.40)',
-            }}
-          >
-            <h1 style={{ textAlign: 'center', fontWeight: 'bold', fontFamily: 'Geneva, Verdana, sans-serif' }}>
-              Metrics
-            </h1>
-            <div className="flexbox-container">
+      <div style={{ position: 'relative', right: 75 }}>
+        <LightGreyCard style={{ maxWidth: 600, width: 500, boxShadow: '0px 0px 10px 1px rgba(0,0,0,0.40)' }}>
+          <h1 style={{ textAlign: 'center', fontWeight: 'bold', fontFamily: 'Geneva, Verdana, sans-serif' }}>
+            Metrics
+          </h1>
+          <Row>
+            <Col span={12}>
               <DarkCard
                 style={{
                   maxWidth: 200,
                   maxHeight: 100,
                   position: 'relative',
-                  paddingLeft: 75,
-                  paddingTop: 50,
-                  paddingRight: 75,
-                  boxShadow: '0px 0px 5px 0px rgba(0,0,0,0.40)',
-                }}
-              ></DarkCard>
-              <DarkCard
-                style={{
-                  maxWidth: 200,
-                  maxHeight: 100,
-                  position: 'relative',
-                  left: 30,
-                  paddingLeft: 75,
-                  paddingTop: 50,
-                  paddingRight: 75,
-                  boxShadow: '0px 0px 5px 0px rgba(0,0,0,0.40)',
-                }}
-              ></DarkCard>
-            </div>
-            <p></p>
-            <p></p>
-            <div className="flexbox-container">
-              <DarkCard
-                style={{
-                  maxWidth: 200,
-                  maxHeight: 100,
-                  position: 'relative',
+                  height: 'auto',
+                  width: 'auto',
                   left: 10,
                   paddingLeft: 75,
                   paddingTop: 50,
                   paddingRight: 75,
                   boxShadow: '0px 0px 5px 0px rgba(0,0,0,0.40)',
                 }}
-              ></DarkCard>
+              >
+                {' '}
+                MarketCap: {0}
+              </DarkCard>
+            </Col>
+            <Col span={12}>
               <DarkCard
                 style={{
                   maxWidth: 200,
                   maxHeight: 100,
+                  height: 'auto',
+                  width: 'auto',
                   position: 'relative',
                   left: 30,
                   paddingLeft: 75,
@@ -216,78 +205,51 @@ export default function NFTtable() {
                   paddingRight: 75,
                   boxShadow: '0px 0px 5px 0px rgba(0,0,0,0.40)',
                 }}
-              ></DarkCard>
-            </div>
-          </LightGreyCard>
-
-          <LightGreyCard
-            style={{
-              position: 'relative',
-              left: 150,
-              maxWidth: 600,
-              width: 500,
-              boxShadow: '0px 0px 10px 1px rgba(0,0,0,0.40)',
-            }}
-          >
-            <h1 style={{ textAlign: 'center', fontWeight: 'bold', fontFamily: 'Geneva, Verdana, sans-serif' }}>
-              NFT table
-            </h1>
-            <div className="flexbox-container">
+              >
+                {' '}
+                $WCC Price: {0}
+              </DarkCard>
+            </Col>
+          </Row>
+          <p></p>
+          <p></p>
+          <Row>
+            <Col span={12}>
               <DarkCard
                 style={{
                   maxWidth: 200,
                   maxHeight: 100,
+                  height: 'auto',
+                  width: 'auto',
                   position: 'relative',
                   left: 10,
                   paddingLeft: 75,
                   paddingTop: 50,
                   paddingRight: 75,
-                  boxShadow: '0px 0px 5px 0px rgba(0,0,0,0.40)',
+                  boxShadow: '0px 0px 10px 1px rgba(0,0,0,0.40)',
                 }}
-              ></DarkCard>
+              >
+                Total Liquidity: {0}
+              </DarkCard>
+            </Col>
+            <Col span={12}>
               <DarkCard
                 style={{
                   maxWidth: 200,
                   maxHeight: 100,
+                  height: 'auto',
+                  width: 'auto',
                   position: 'relative',
                   left: 30,
                   paddingLeft: 75,
                   paddingTop: 50,
                   paddingRight: 75,
-                  boxShadow: '0px 0px 5px 0px rgba(0,0,0,0.40)',
+                  boxShadow: '0px 0px 10px 1px rgba(0,0,0,0.40)',
                 }}
               ></DarkCard>
-            </div>
-            <p></p>
-            <p></p>
-            <div className="flexbox-container">
-              <DarkCard
-                style={{
-                  maxWidth: 200,
-                  maxHeight: 100,
-                  position: 'relative',
-                  left: 10,
-                  paddingLeft: 75,
-                  paddingTop: 50,
-                  paddingRight: 75,
-                  boxShadow: '0px 0px 5px 0px rgba(0,0,0,0.40)',
-                }}
-              ></DarkCard>
-              <DarkCard
-                style={{
-                  maxWidth: 200,
-                  maxHeight: 100,
-                  position: 'relative',
-                  left: 30,
-                  paddingLeft: 75,
-                  paddingTop: 50,
-                  paddingRight: 75,
-                  boxShadow: '0px 0px 5px 0px rgba(0,0,0,0.40)',
-                }}
-              ></DarkCard>
-            </div>
-          </LightGreyCard>
-        </div>
+            </Col>
+          </Row>
+        </LightGreyCard>
       </div>
     </>
   )

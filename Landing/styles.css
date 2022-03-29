@@ -4,9 +4,6 @@
     font-family: sans-serif;
     text-align: center;
   }
-  .darktext {
-    color: #000000
-  }
   
   .wrapper {
     display: flex;

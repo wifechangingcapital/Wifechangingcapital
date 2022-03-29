@@ -4,9 +4,6 @@
     font-family: sans-serif;
     text-align: center;
   }
-  .darktext {
-    color: #000000
-  }
   
   .wrapper {
     display: flex;
@@ -23,32 +20,23 @@
     display: flex;
     flex-direction: row;
 }
-.flexbox-container-small {
-  display: flex;
-  flex-direction: row;
-  max-width: fit-content;
-  width: '100%'
-}
 .flexbox-vertical-container {
   display: flex;
   flex-direction: column;
 
 }
-.flexbox-vertical-container-video {
-  display: flex;
-  flex-direction: column;
-  max-width: fit-content;
-  width: '100%';
-  max-height: 300px;
 
+.darktext {
+  color: #000000;
+  text-align: center;
 }
 .videostyle {
-  object-fit: cover;
-  width: 100vw;
-  height: 100vh;
-  position: fixed;
-  top: 0;
-  left: 0;
+  max-height: 350px;
+  max-width: 700px;
+  height: 'auto';
+  width: 'auto';
+  position: relative;
+  left: 350px;
 }
 .flexbox-vertical-container-text {
   display: flex;
@@ -129,16 +117,6 @@
     transition: opacity 6.0s ;
  
   }
-  .borderedCard {
-    border-style: solid;
-    background-color: 'transparent';
-    border-width: 2px;
-    border-radius: '6px' !important;
-    border-image: linear-gradient(50deg, rgb(128, 4, 124), rgb(227, 2, 195), rgb(230, 117, 227)) 1;
-    border-collapse: separate; 
-    overflow: hidden;
-    perspective: 1px;
-  }
   
   .messageleft {
     position: absolute;
@@ -149,26 +127,4 @@
     font-weight: bold;
     transition: opacity 300ms ease-out, transform 300ms ease-out;
   }
-  
-    .vertical-timeline-element-content-box {
-      padding: 1em;
-      border-radius: 0.25em;
-      border: 4px solid transparent;
-      border-image: linear-gradient(to right, #000000, #0098ED);
-      border-image-slice: 1;
-    }
-  
-    .vertical-timeline-element-content::before {
-      border-left-color: #0098ED;
-    }
-  
-    @media only screen and (min-width: 1170px) {
-      .vertical-timeline-element-content .vertical-timeline-element-date {
-        left: 136%;
-      }
-  
-      :nth-child(even):not(.vertical-timeline-element--left) .vertical-timeline-element-content .vertical-timeline-element-date, .vertical-timeline-element.vertical-timeline-element--right .vertical-timeline-element-content .vertical-timeline-element-date {
-        right: 136% !important;
-      }
-    }
   

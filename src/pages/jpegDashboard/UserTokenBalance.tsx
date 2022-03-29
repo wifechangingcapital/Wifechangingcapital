@@ -1,4 +1,4 @@
-import './styles.css'
+import '../Landing/styles.css'
 import 'animate.css'
 
 //import { LoadingOutlined } from '@ant-design/icons'
@@ -6,7 +6,7 @@ import { Contract } from '@ethersproject/contracts'
 import { Web3Provider } from '@ethersproject/providers'
 import { formatEther } from '@ethersproject/units'
 import { useWeb3React } from '@web3-react/core'
-import { DarkCard } from 'components/Card'
+import { GreyCard } from 'components/Card'
 import useActiveWeb3React from 'hooks/useActiveWeb3React'
 import React, { useEffect, useState } from 'react'
 import styled from 'styled-components/macro'
@@ -19,8 +19,9 @@ const Styledtext = styled.text`
   font-weight: bold;
 `
 const StyledImg = styled.img`
-  justify-content: 'center';
+  justify-content: 'right';
   position: relative;
+  margin-bottom: 34px;
 `
 //const antIcon = <LoadingOutlined style={{ fontSize: 24 }} spin />
 
@@ -169,56 +170,54 @@ const UserTokenBalance = () => {
   return (
     <>
       <div className={'animate__animated animate__backInRight'}>
-        <div className={'darktext'}>
-          <div className={'flexbox-vertical-container'}>
-            <StyledImg
-              style={{ paddingBottom: 10, alignItems: 'center', marginLeft: 100 }}
-              src={DashWCC}
-              height={200}
-              width={400}
-              alt="header"
-            ></StyledImg>
-            <div className={'flexbox-container'}>
-              <DarkCard
-                style={{
-                  maxWidth: '800px',
-                  marginBottom: '20px',
-                  marginRight: '20px',
-                }}
-              >
-                <Styledtext style={{ justifyContent: 'right', textAlign: 'left', paddingRight: 250 }}>
-                  {' '}
-                  NFTs purchased {''} {claimableBalance}
-                </Styledtext>
-              </DarkCard>
-              <DarkCard
-                style={{
-                  maxWidth: '800px',
-                  marginBottom: '20px',
-                }}
-              >
-                <Styledtext style={{ justifyContent: 'right', textAlign: 'right' }}>
-                  Project Total invested ${claimableBalance * AnimePriceInUsd} {''} {userBalance}
-                </Styledtext>
-              </DarkCard>
-            </div>
-            <div className={'flexbox-container'}>
-              <DarkCard
-                style={{
-                  maxWidth: '800px',
-                  marginRight: '20px',
-                }}
-              >
-                <Styledtext style={{ justifyContent: 'right', textAlign: 'right' }}>
-                  Your Token Balance {''} {userBalance}
-                </Styledtext>
-              </DarkCard>
-              <DarkCard>
-                <Styledtext style={{ justifyContent: 'right', textAlign: 'right' }}>
-                  Your Token Balance Value ${''} {userBalance * AnimePriceInUsd}
-                </Styledtext>
-              </DarkCard>
-            </div>
+        <div className={'flexbox-vertical-container'}>
+          <StyledImg
+            style={{ paddingBottom: 10, alignItems: 'center' }}
+            src={DashWCC}
+            height={200}
+            width={400}
+            alt="header"
+          ></StyledImg>
+          <div className={'flexbox-container'}>
+            <GreyCard
+              style={{
+                maxWidth: '800px',
+                marginBottom: '20px',
+                marginRight: '20px',
+              }}
+            >
+              <Styledtext style={{ justifyContent: 'right', textAlign: 'left', paddingRight: 250 }}>
+                {' '}
+                Total Invested by the Company {''} {claimableBalance}
+              </Styledtext>
+            </GreyCard>
+            <GreyCard
+              style={{
+                maxWidth: '800px',
+                marginBottom: '20px',
+              }}
+            >
+              <Styledtext style={{ justifyContent: 'right', textAlign: 'right' }}>
+                Total Buyback Value ${claimableBalance * AnimePriceInUsd} {''} {userBalance}
+              </Styledtext>
+            </GreyCard>
+          </div>
+          <div className={'flexbox-container'}>
+            <GreyCard
+              style={{
+                maxWidth: '800px',
+                marginRight: '20px',
+              }}
+            >
+              <Styledtext style={{ justifyContent: 'right', textAlign: 'right' }}>
+                Your Token Balance {''} {userBalance}
+              </Styledtext>
+            </GreyCard>
+            <GreyCard>
+              <Styledtext style={{ justifyContent: 'right', textAlign: 'right' }}>
+                Your Token Balance Value ${''} {userBalance * AnimePriceInUsd}
+              </Styledtext>
+            </GreyCard>
           </div>
         </div>
       </div>

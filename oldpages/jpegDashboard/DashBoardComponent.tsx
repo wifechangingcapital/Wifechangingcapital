@@ -1,60 +1,70 @@
 import './styles.css'
 
-import { SupportedChainId } from 'constants/chains'
-import useActiveWeb3React from 'hooks/useActiveWeb3React'
 import styled from 'styled-components/macro'
 
-import { DarkCard } from '../../components/Card'
-import NFTtable from './NFT'
+import { LightGreyCard } from '../../components/Card'
+import { SupportedChainId } from '../../constants/chains'
+import useActiveWeb3React from '../../hooks/useActiveWeb3React'
+import Buyback from './Buyback'
 //import ClaimTransaction from './ClaimTransaction'
+import NFTtable from './NFT'
 import UserTokenBalance from './UserTokenBalance'
-//import UserTokenStats from './Userstats'
-//import CompanyMetrics from "../../components/CompanyMetrics"
+
 export default function DashBoardComponent() {
   const { account, chainId } = useActiveWeb3React()
   const showConnectAWallet = Boolean(!account)
   //const propernetwork = Boolean(!chainId)
   const isNotOnMainnet = Boolean(chainId && chainId !== SupportedChainId.RINKEBY)
+
   const StyledText = styled.text`
     font-size: 20px;
     text-color: #ffffff;
   `
   if (isNotOnMainnet) {
     return (
-      <DarkCard
+      <LightGreyCard
         style={{
           fontSize: '20px',
           fontWeight: 'bold',
           textAlign: 'center',
+          backgroundColor: '#fff700',
           maxWidth: '800px',
         }}
       >
         {' '}
         <StyledText style={{ justifyContent: 'center' }}> Please Connect to Ethereum Mainnet</StyledText>{' '}
-      </DarkCard>
+      </LightGreyCard>
     )
   } else {
     if (showConnectAWallet) {
       return (
-        <DarkCard
+        <LightGreyCard
           style={{
             fontSize: '20px',
             fontWeight: 'bold',
             textAlign: 'center',
+            backgroundColor: '#fff700',
             maxWidth: '800px',
           }}
         >
           {' '}
           <StyledText style={{ justifyContent: 'center' }}> Connect a wallet to continue </StyledText>{' '}
-        </DarkCard>
+        </LightGreyCard>
       )
     } else {
       return (
         <>
+          <div className="animate__animated animate__fadeInDown"></div>
           <div className={'flexbox-vertical-container'}>
             <UserTokenBalance></UserTokenBalance>
             <p></p>
-            <NFTtable></NFTtable>
+            <p></p>
+
+            <div className={'blacktext'}>
+              <NFTtable></NFTtable>
+
+              <Buyback></Buyback>
+            </div>
           </div>
         </>
       )

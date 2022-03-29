@@ -1,73 +1,45 @@
 import { LoadingOutlined } from '@ant-design/icons'
 import { Contract } from '@ethersproject/contracts'
 import { Web3Provider } from '@ethersproject/providers'
-import useScrollPosition from '@react-hook/window-scroll'
 import { useWeb3React } from '@web3-react/core'
-import { Spin } from 'antd'
-import { GreyCard } from 'components/Card'
+import { Row } from 'antd'
+import { LightCard } from 'components/Card'
 //import { RowBetween } from 'components/Row'
 import useActiveWeb3React from 'hooks/useActiveWeb3React'
 //import useAddTokenToMetamask from 'hooks/useAddTokenToMetamask' - /////from transaction cofrimation modal index line 127
 import React, { useCallback, useState } from 'react'
 import styled from 'styled-components/macro'
 
-import header from '../../assets/images/header.png'
-const ClaimButton = styled.button`
+const BuyButton = styled.button`
+  color: rgb(255, 255, 255);
+  font-size: 18px;
+  padding: 8px 35px;
+  border-radius: 0px;
+  font-family: Georgia, serif;
+  font-weight: normal;
   position: relative;
-  display: 'block';
-  right: 45px;
-  left: 527px;
-  text-color: #ffffff;
-  bottom: 155px;
-  padding: 10px 40px;
-  border-radius: 25px;
-  background-image: linear-gradient(45deg, rgb(255, 0, 0) 0%, rgb(255, 148, 0) 70%, rgb(255, 253, 43) 100%);
-  box-shadow: rgb(0, 0, 0) 0px 0px 7px 1px;
-  border: 0px groove rgb(28, 110, 164);
-  font-family: Verdana, Geneva, sans-serif;
-  font-size: 12px;
+  left: 1150px;
+  text-decoration: none;
+  font-style: normal;
+  font-variant: normal;
+  background-image: linear-gradient(rgb(125, 125, 125) 0%, rgb(225, 225, 225) 100%, rgb(181, 181, 181) 100%);
+  box-shadow: rgb(0, 0, 0) 1px 1px 5px 0px;
+  border: 0px solid rgb(27, 164, 21);
+  myButton:hover
+    background: #7d7d7d;
+  myButton:active 
+    background: #b5b5b5;
+`
+const Styledtext = styled.text`
+  text-shadow: 0px 1px 0px rgba(0, 0, 0, 0.2);
+  font-size: 22px;
+  text-color: #000000;
+  text-align: 'center';
   font-weight: bold;
-  transition: border-color 0.5s ease-out;
-  &:hover {
-      background-color: #ff9d1c;
-      color: black;
 `
-const StyledImg = styled.img`
-  justify-content: 'right';
-  position: relative;
-  margin-bottom: 34px;
-`
-// left: 600px
-const DonateButton = styled.button`
-  padding: 10px 4px;
-  display: 'block';
-  position: relative;
-  font-color: #ffffff;
-  left: 525px;
-  bottom: 175px;
-  border-radius: 25px;
-  background-image: linear-gradient(45deg, rgb(255, 0, 0) 0%, rgb(255, 148, 0) 70%, rgb(255, 253, 43) 100%);
-  box-shadow: rgb(0, 0, 0) 0px 0px 7px 1px;
-  border: 0px groove rgb(28, 110, 164);
-  font-family: Verdana, Geneva, sans-serif;
-  font-size: 12px;
-  font-weight: bold;
-  transition: border-color 0.5s ease-out;
-  &:hover {
-      background-color: #ff9d1c;
-      color: black;
-`
-const HoverCard = styled(GreyCard)`
- transition: "all 2's" ;
- &:hover {
-     background-color: #ff9d1c;
-     color: black;
- 
- `
 const antIcon = <LoadingOutlined style={{ fontSize: 24 }} spin />
 
 const ClaimTransaction = () => {
-  const scrollY = useScrollPosition()
   const [loading, setLoading] = useState(false)
   const { account } = useActiveWeb3React()
   const showConnectAWallet = Boolean(!account)
@@ -134,40 +106,15 @@ const ClaimTransaction = () => {
     }
   }, [showConnectAWallet, account, signer])
 
-  if (scrollY > 20)
-    // useLayoutEffect document.getElementById("GreyCard").style.transition = "all 2s";
-    return (
-      <>
-        <HoverCard
-          className="HoverCard"
-          style={{
-            transition: "all 2's",
-            backgroundColor: '#f70000',
-            fontSize: '12x',
-            maxWidth: '800px',
-            maxHeight: 200,
-            marginBottom: '10px',
-          }}
-        >
-          <StyledImg
-            style={{ paddingBottom: 10, alignItems: 'left' }}
-            src={header}
-            height={200}
-            width={400}
-            alt="eader"
-          ></StyledImg>
-          <DonateButton style={{ display: 'block' }} onClick={handleDonate}>
-            Donate to Charity
-          </DonateButton>
-          <ClaimButton color="secondary" disabled={!account || loading} onClick={handleClaim}>
-            {loading ? <Spin indicator={antIcon} className="add-spinner" /> : 'Claim'}
-          </ClaimButton>
-        </HoverCard>
-      </>
-    )
-  else {
-    return <></>
-  }
+  return (
+    <>
+      <LightCard>
+        <Styledtext>Dashboard</Styledtext>
+        <BuyButton>BUY $JPG</BuyButton>
+      </LightCard>
+      <Row></Row>
+    </>
+  )
 }
 
 export default ClaimTransaction
