@@ -1,0 +1,1 @@
+Anime verse is made off a base of open source code then had major edits such as a Landingpage, Dashboard, and NFT marketplace connected via Openseas APIkey.
