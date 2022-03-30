@@ -5,7 +5,8 @@ import useActiveWeb3React from 'hooks/useActiveWeb3React'
 import styled from 'styled-components/macro'
 
 import { DarkCard } from '../../components/Card'
-import NFTtable from './NFT'
+import BuybackTable from './BuyBack'
+//import NFTtable from './NFT'
 //import ClaimTransaction from './ClaimTransaction'
 import UserTokenBalance from './UserTokenBalance'
 //import UserTokenStats from './Userstats'
@@ -14,7 +15,7 @@ export default function DashBoardComponent() {
   const { account, chainId } = useActiveWeb3React()
   const showConnectAWallet = Boolean(!account)
   //const propernetwork = Boolean(!chainId)
-  const isNotOnMainnet = Boolean(chainId && chainId !== SupportedChainId.RINKEBY)
+  const isNotOnMainnet = Boolean(chainId && chainId !== SupportedChainId.MAINNET)
   const StyledText = styled.text`
     font-size: 20px;
     text-color: #ffffff;
@@ -30,7 +31,9 @@ export default function DashBoardComponent() {
         }}
       >
         {' '}
-        <StyledText style={{ justifyContent: 'center' }}> Please Connect to Ethereum Mainnet</StyledText>{' '}
+        <div className={'darktext'}>
+          <StyledText style={{ justifyContent: 'center' }}> Please Connect to Ethereum Mainnet</StyledText>{' '}
+        </div>
       </DarkCard>
     )
   } else {
@@ -45,7 +48,9 @@ export default function DashBoardComponent() {
           }}
         >
           {' '}
-          <StyledText style={{ justifyContent: 'center' }}> Connect a wallet to continue </StyledText>{' '}
+          <div className={'darktext'}>
+            <StyledText style={{ justifyContent: 'center' }}> Connect a wallet to continue </StyledText>{' '}
+          </div>
         </DarkCard>
       )
     } else {
@@ -54,7 +59,9 @@ export default function DashBoardComponent() {
           <div className={'flexbox-vertical-container'}>
             <UserTokenBalance></UserTokenBalance>
             <p></p>
-            <NFTtable></NFTtable>
+
+            <p></p>
+            <BuybackTable></BuybackTable>
           </div>
         </>
       )

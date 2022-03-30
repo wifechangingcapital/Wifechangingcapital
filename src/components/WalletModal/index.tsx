@@ -19,10 +19,10 @@ import { SUPPORTED_WALLETS } from '../../constants/wallet'
 import usePrevious from '../../hooks/usePrevious'
 import { useModalOpen, useWalletModalToggle } from '../../state/application/hooks'
 import { ApplicationModal } from '../../state/application/reducer'
-import { ExternalLink, ThemedText } from '../../theme'
+//import { ExternalLink, ThemedText } from '../../theme'
 import { isMobile } from '../../utils/userAgent'
 import AccountDetails from '../AccountDetails'
-import Card, { GreyCard } from '../Card' //LightCard
+import Card from '../Card' //LightCard
 import Modal from '../Modal'
 import Option from './Option'
 import PendingView from './PendingView'
@@ -343,11 +343,7 @@ export default function WalletModal({
             >
               <ArrowLeft />
             </HoverText>
-            <Row justify="center">
-              <ThemedText.MediumHeader>
-                <Trans>Legal & Privacy</Trans>
-              </ThemedText.MediumHeader>
-            </Row>
+            <Row justify="center"></Row>
           </HeaderRow>
           <PrivacyPolicy />
         </UpperSection>
@@ -390,18 +386,6 @@ export default function WalletModal({
 
         <ContentWrapper>
           <AutoColumn gap="16px">
-            <GreyCard>
-              <AutoRow style={{ flexWrap: 'nowrap' }}>
-                <ThemedText.Black fontSize={14}>
-                  <Trans>
-                    By connecting a wallet, you agree to Mcdegens{' '}
-                    <ExternalLink href="https://uniswap.org/terms-of-service/">Terms of Service</ExternalLink> and
-                    acknowledge that you have read and understand the{' '}
-                    <ExternalLink href="https://uniswap.org/disclaimer/">Protocol Disclaimer</ExternalLink>.
-                  </Trans>
-                </ThemedText.Black>
-              </AutoRow>
-            </GreyCard>
             {walletView === WALLET_VIEWS.PENDING ? (
               <PendingView
                 connector={pendingWallet}
@@ -416,9 +400,6 @@ export default function WalletModal({
               <RowBetween>
                 <AutoRow gap="4px">
                   <Info size={20} />
-                  <ThemedText.Label fontSize={14}>
-                    <Trans>How this app uses APIs</Trans>
-                  </ThemedText.Label>
                 </AutoRow>
                 <ArrowRight size={16} />
               </RowBetween>

@@ -29,10 +29,9 @@ const UserTokenBalance = () => {
   const { account } = useActiveWeb3React()
   const showConnectAWallet = Boolean(!account)
   const [userBalance, setuserBalance] = useState(Number)
-  const [claimableBalance, setclaimableBalance] = useState(Number)
-
-  const [AnimePrice, setAnimePrice] = useState(Number)
-  const [EthPrice, setEthPrice] = useState(Number)
+  //const [claimableBalance, setclaimableBalance] = useState(Number)
+  const [Reserve0, setReserve0] = useState(String)
+  const [Reserve1, setReserve1] = useState(String)
   const context = useWeb3React()
   const { library } = context
   useEffect(() => {
@@ -46,24 +45,22 @@ const UserTokenBalance = () => {
         //setLoading(true)
         const provider = new Web3Provider(library.provider)
         const response = await fetch(
-          'https://api-rinkeby.etherscan.io/api?module=contract&action=getabi&address=0x8A2b5F4308d896feCe6be7ce4Ec304Bd1d1DfE63&apikey=432BW4Y2JX817J6CJAWGHAFTXQNFVXRU2Q'
+          'https://api.etherscan.io/api?module=contract&action=getabi&address=0xC6Ef330D0cf66FDFb61c2eB904e90E4e67E401Ec&apikey=432BW4Y2JX817J6CJAWGHAFTXQNFVXRU2Q'
         )
 
         const data = await response.json()
         const abi = data.result
-        console.log(abi)
-        const contractaddress = '0x8A2b5F4308d896feCe6be7ce4Ec304Bd1d1DfE63'
+        const contractaddress = '0xC6Ef330D0cf66FDFb61c2eB904e90E4e67E401Ec'
         const contract = new Contract(contractaddress, abi, provider)
         const UserTokenBalance = await contract.balanceOf(account)
         const FinalResult = await UserTokenBalance.toString()
-        console.log(FinalResult)
         return FinalResult
       } catch (error) {
         console.log(error)
       } finally {
       }
     }
-    async function FetchRawPrice() {
+    async function FetchReserve0() {
       if (showConnectAWallet) {
         console.log({ message: 'Hold On there Partner, there seems to be an Account err!' })
         return
@@ -73,19 +70,18 @@ const UserTokenBalance = () => {
         // setLoading(true)
         const provider = new Web3Provider(library.provider)
         const response = await fetch(
-          'https://api-rinkeby.etherscan.io/api?module=contract&action=getabi&address=0xEC33992fd60A350500c543b3B0E1D90fDCaFb10a&apikey=432BW4Y2JX817J6CJAWGHAFTXQNFVXRU2Q'
+          'https://api.etherscan.io/api?module=contract&action=getabi&address=0x3ee197c0434ef9fcef00c7cf338858a85e551640&apikey=432BW4Y2JX817J6CJAWGHAFTXQNFVXRU2Q'
         ) // Api Key also the pair contract
 
         const data = await response.json()
         const abi = data.result
-        console.log(abi)
-        const contractaddress = '0xEC33992fd60A350500c543b3B0E1D90fDCaFb10a' // need uniswapv2pair
+        const contractaddress = '0x3ee197c0434ef9fcef00c7cf338858a85e551640' // need uniswapv2pair
         const contract = new Contract(contractaddress, abi, provider)
-        const Price = await contract.price0CumulativeLast()
-        const JpegPrice = await Price
-        const DisplayJpegPrice = JpegPrice.toString()
-        console.log(DisplayJpegPrice)
-        return DisplayJpegPrice
+        const Price = await contract.getReserves()
+        const Reserve0 = await Price._reserve0
+        const DisplayReserve0 = Reserve0.toString()
+        console.log(DisplayReserve0)
+        return DisplayReserve0
       } catch (error) {
         console.log(error)
         //setLoading(false)
@@ -93,89 +89,73 @@ const UserTokenBalance = () => {
         // setLoading(false)
       }
     }
-    async function FetchClaimBalance() {
+    async function FetchReserve1() {
       if (showConnectAWallet) {
+        console.log({ message: 'Hold On there Partner, there seems to be an Account err!' })
         return
       }
 
       try {
-        //setLoading(true)
+        // setLoading(true)
         const provider = new Web3Provider(library.provider)
         const response = await fetch(
-          'https://api-rinkeby.etherscan.io/api?module=contract&action=getabi&address=0x8A2b5F4308d896feCe6be7ce4Ec304Bd1d1DfE63&apikey=432BW4Y2JX817J6CJAWGHAFTXQNFVXRU2Q'
-        )
+          'https://api.etherscan.io/api?module=contract&action=getabi&address=0x3ee197c0434ef9fcef00c7cf338858a85e551640&apikey=432BW4Y2JX817J6CJAWGHAFTXQNFVXRU2Q'
+        ) // Api Key also the pair contract
 
         const data = await response.json()
         const abi = data.result
-        console.log(abi)
-        const contractaddress = '0x8A2b5F4308d896feCe6be7ce4Ec304Bd1d1DfE63'
+        const contractaddress = '0x3ee197c0434ef9fcef00c7cf338858a85e551640' // need uniswapv2pair
         const contract = new Contract(contractaddress, abi, provider)
-        const UserClaimBalance = await contract.balanceOf(account)
-        const test = UserClaimBalance
-        const test0 = UserClaimBalance.toString()
-        console.log(test)
-        return test0
+        const Price = await contract.getReserves()
+        const Reserve1 = await Price._reserve1
+        const Reserve1display = Reserve1.toString()
+        return Reserve1display
       } catch (error) {
         console.log(error)
-        // setLoading(false)
+        //setLoading(false)
       } finally {
         // setLoading(false)
       }
     }
-    async function FetchEthPrice() {
-      if (showConnectAWallet) {
-        return
-      }
 
-      try {
-        //setLoading(true)
-        const response = await fetch(
-          'https://api.etherscan.io/api?module=stats&action=ethprice&apikey=432BW4Y2JX817J6CJAWGHAFTXQNFVXRU2Q'
-        ) // Api Key
-
-        const data = await response.json()
-        const ethprice = data.ethusd
-        const ethPrice = await ethprice
-        const DisplayethPrice = ethPrice
-        console.log(DisplayethPrice)
-        return DisplayethPrice
-      } catch (error) {
-        console.log(error)
-      } finally {
-      }
-    }
-
-    FetchEthPrice().then((result) => setEthPrice(result))
-
-    FetchClaimBalance()
+    FetchReserve1()
       .then((result) => formatEther(result))
       .then((result) => JSON.parse(result))
-      .then((result) => result.toFixed(2))
-      .then((result) => setclaimableBalance(result))
+      .then((result) => setReserve1(result))
 
-    FetchRawPrice()
+    FetchReserve0()
       .then((result) => formatEther(result))
       .then((result) => JSON.parse(result))
-      .then((result) => result.toFixed(3))
-      .then((result) => setAnimePrice(result))
+
+      .then((result) => setReserve0(result))
 
     FetchBalance()
       .then((result) => formatEther(result))
-      .then((result) => parseInt(result))
+      .then((result) => JSON.parse(result))
+      .then((result) => result.toFixed(3))
       .then((result) => setuserBalance(result))
   }, [account, showConnectAWallet, library.provider])
 
-  const AnimePriceInUsd = AnimePrice / EthPrice
+  const Reserve1math = Number(Reserve1)
+  console.log(Reserve1math)
+  const Reserve2math = Number(Reserve0)
+  //const Reserve2price = Reserve2math * 1000000
+  console.log(Reserve2math)
+  console.log(Reserve0)
+  const WifePriceinUsd = Reserve2math / Reserve1math / 1000
+  console.log(WifePriceinUsd)
+  //const finalprice = WifePriceinUsd.toFixed(3)
+  // fetch - math - format?
   return (
     <>
       <div className={'animate__animated animate__backInRight'}>
         <div className={'darktext'}>
           <div className={'flexbox-vertical-container'}>
             <StyledImg
-              style={{ paddingBottom: 10, alignItems: 'center', marginLeft: 100 }}
+              style={{ paddingBottom: 10, alignItems: 'center', marginLeft: 100, position: 'relative', left: 0 }}
               src={DashWCC}
-              height={200}
-              width={400}
+              height={400}
+              width={800}
               alt="header"
             ></StyledImg>
             <div className={'flexbox-container'}>
@@ -188,7 +168,7 @@ const UserTokenBalance = () => {
               >
                 <Styledtext style={{ justifyContent: 'right', textAlign: 'left', paddingRight: 250 }}>
                   {' '}
-                  NFTs purchased {''} {claimableBalance}
+                  NFTs purchases {''} Coming Soon!
                 </Styledtext>
               </DarkCard>
               <DarkCard
@@ -198,7 +178,7 @@ const UserTokenBalance = () => {
                 }}
               >
                 <Styledtext style={{ justifyContent: 'right', textAlign: 'right' }}>
-                  Project Total invested ${claimableBalance * AnimePriceInUsd} {''} {userBalance}
+                  Project Total BuyBacks {''} $8321
                 </Styledtext>
               </DarkCard>
             </div>
@@ -215,7 +195,7 @@ const UserTokenBalance = () => {
               </DarkCard>
               <DarkCard>
                 <Styledtext style={{ justifyContent: 'right', textAlign: 'right' }}>
-                  Your Token Balance Value ${''} {userBalance * AnimePriceInUsd}
+                  Total Supply Burned {''} 3%
                 </Styledtext>
               </DarkCard>
             </div>

@@ -3,37 +3,12 @@ import useActiveWeb3React from 'hooks/useActiveWeb3React'
 import styled from 'styled-components/macro'
 import { MEDIA_WIDTHS } from 'theme'
 
-import { useActivePopups } from '../../state/application/hooks'
-import { useShowSurveyPopup, useURLWarningVisible } from '../../state/user/hooks'
+//import { useActivePopups } from '../../state/application/hooks'
+import { useURLWarningVisible } from '../../state/user/hooks'
 import { AutoColumn } from '../Column'
 import ClaimPopup from './ClaimPopup'
 //import PopupItem from './PopupItem'
 //import SurveyPopup from './SurveyPopup'
-
-const MobilePopupWrapper = styled.div<{ height: string | number }>`
-  position: relative;
-  max-width: 100%;
-  height: ${({ height }) => height};
-  margin: ${({ height }) => (height ? '0 auto;' : 0)};
-  margin-bottom: ${({ height }) => (height ? '20px' : 0)}};
-
-  display: none;
-  ${({ theme }) => theme.mediaWidth.upToSmall`
-    display: block;
-  `};
-`
-
-const MobilePopupInner = styled.div`
-  height: 99%;
-  overflow-x: auto;
-  overflow-y: hidden;
-  display: flex;
-  flex-direction: row;
-  -webkit-overflow-scrolling: touch;
-  ::-webkit-scrollbar {
-    display: none;
-  }
-`
 
 const StopOverflowQuery = `@media screen and (min-width: ${MEDIA_WIDTHS.upToMedium + 1}px) and (max-width: ${
   MEDIA_WIDTHS.upToMedium + 500
@@ -58,11 +33,6 @@ const FixedPopupColumn = styled(AutoColumn)<{ extraPadding: boolean; xlPadding: 
 
 export default function Popups() {
   // get all popups
-  const activePopups = useActivePopups()
-
-  // show survey popup if user has not closed
-  const [showSurveyPopup] = useShowSurveyPopup()
-
   const urlWarningActive = useURLWarningVisible()
 
   // need extra padding if network is not L1 Ethereum

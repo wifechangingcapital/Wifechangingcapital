@@ -3,7 +3,7 @@ import 'animate.css'
 
 import { Contract } from '@ethersproject/contracts'
 import { Web3Provider } from '@ethersproject/providers'
-import { formatEther } from '@ethersproject/units'
+//import { formatEther } from '@ethersproject/units'
 import { useWeb3React } from '@web3-react/core'
 import React, { useEffect, useState } from 'react'
 
@@ -14,145 +14,94 @@ import useActiveWeb3React from '../../hooks/useActiveWeb3React'
 export default function NFTtable() {
   const { account } = useActiveWeb3React()
   const showConnectAWallet = Boolean(!account)
-  const [EthReserves, setEthReserves] = useState(Number)
-  const [JpegReserves, setJpegReserves] = useState(Number)
+  //const [EthReserves, setEthReserves] = useState(Number)
+  //const [JpegReserves, setJpegReserves] = useState(Number)
   const context = useWeb3React()
   const { library } = context
-  const [JpegPrice, setJpegPrice] = useState(Number)
-  const [EthPrice, setEthPrice] = useState(Number)
+  const [Reserve0, setReserve0] = useState(Number)
+  const [Reserve1, setReserve1] = useState(Number)
 
   useEffect(() => {
-    const provider = new Web3Provider(library.provider)
-    async function FetchRawPrice() {
+    //const provider = new Web3Provider(library.provider)
+
+    async function FetchReserve0() {
       if (showConnectAWallet) {
         console.log({ message: 'Hold On there Partner, there seems to be an Account err!' })
         return
       }
 
       try {
+        // setLoading(true)
+        const provider = new Web3Provider(library.provider)
         const response = await fetch(
-          'https://api-rinkeby.etherscan.io/api?module=contract&action=getabi&address=0xEC33992fd60A350500c543b3B0E1D90fDCaFb10a&apikey=432BW4Y2JX817J6CJAWGHAFTXQNFVXRU2Q'
+          'https://api.etherscan.io/api?module=contract&action=getabi&address=0x3ee197c0434ef9fcef00c7cf338858a85e551640&apikey=432BW4Y2JX817J6CJAWGHAFTXQNFVXRU2Q'
         ) // Api Key also the pair contract
 
         const data = await response.json()
         const abi = data.result
-        console.log(abi)
-        const contractaddress = '0xEC33992fd60A350500c543b3B0E1D90fDCaFb10a' // need uniswapv2pair
+        const contractaddress = '0x3ee197c0434ef9fcef00c7cf338858a85e551640' // need uniswapv2pair
         const contract = new Contract(contractaddress, abi, provider)
-        const Price = await contract.price0CumulativeLast()
-        const JpegPrice = await Price
-        const DisplayJpegPrice = JpegPrice
-        console.log(DisplayJpegPrice)
-        return DisplayJpegPrice
+        const Price = await contract.getReserves()
+        const Reserve0 = await Price._reserve0
+        const DisplayReserve0 = Reserve0.toString()
+        return DisplayReserve0
       } catch (error) {
         console.log(error)
+        //setLoading(false)
       } finally {
+        // setLoading(false)
       }
     }
-    async function FetchEthReserve() {
+    async function FetchReserve1() {
       if (showConnectAWallet) {
         console.log({ message: 'Hold On there Partner, there seems to be an Account err!' })
         return
       }
 
       try {
+        // setLoading(true)
+        const provider = new Web3Provider(library.provider)
         const response = await fetch(
-          'https://api-rinkeby.etherscan.io/api?module=contract&action=getabi&address=0xEC33992fd60A350500c543b3B0E1D90fDCaFb10a&apikey=432BW4Y2JX817J6CJAWGHAFTXQNFVXRU2Q'
+          'https://api.etherscan.io/api?module=contract&action=getabi&address=0x3ee197c0434ef9fcef00c7cf338858a85e551640&apikey=432BW4Y2JX817J6CJAWGHAFTXQNFVXRU2Q'
         ) // Api Key also the pair contract
 
         const data = await response.json()
         const abi = data.result
-        console.log(abi)
-        const contractaddress = '0xEC33992fd60A350500c543b3B0E1D90fDCaFb10a' // need uniswapv2pair
+        const contractaddress = '0x3ee197c0434ef9fcef00c7cf338858a85e551640' // need uniswapv2pair
         const contract = new Contract(contractaddress, abi, provider)
-        const Reserves = await contract.getReserves()
-        const JpegReserveB = await Reserves._reserve1
-        const DisplayEthReserves = JpegReserveB
-        return DisplayEthReserves
+        const Price = await contract.getReserves()
+        const Reserve1 = await Price._reserve1
+        const Reserve1display = Reserve1.toString()
+        return Reserve1display
       } catch (error) {
         console.log(error)
+        //setLoading(false)
       } finally {
-      }
-    }
-    async function FetchJpegReserve() {
-      if (showConnectAWallet) {
-        console.log({ message: 'Hold On there Partner, there seems to be an Account err!' })
-        return
-      }
-
-      try {
-        const response = await fetch(
-          'https://api-rinkeby.etherscan.io/api?module=contract&action=getabi&address=0xEC33992fd60A350500c543b3B0E1D90fDCaFb10a&apikey=432BW4Y2JX817J6CJAWGHAFTXQNFVXRU2Q'
-        ) // Api Key also the pair contract
-
-        const data = await response.json()
-        const abi = data.result
-        console.log(abi)
-        const contractaddress = '0xEC33992fd60A350500c543b3B0E1D90fDCaFb10a' // need uniswapv2pair
-        const contract = new Contract(contractaddress, abi, provider)
-        const Reserves = await contract.getReserves()
-        const JpegReserveA = await Reserves._reserve0
-        const DisplayJpegReserves = JpegReserveA
-        console.log(DisplayJpegReserves)
-        return DisplayJpegReserves
-      } catch (error) {
-        console.log(error)
-      } finally {
-      }
-    }
-    async function FetchEthPrice() {
-      if (showConnectAWallet) {
-        console.log({ message: 'Hold On there Partner, there seems to be an Account err!' })
-        return
-      }
-
-      try {
-        const response = await fetch(
-          'https://api.etherscan.io/api?module=stats&action=ethprice&apikey=432BW4Y2JX817J6CJAWGHAFTXQNFVXRU2Q'
-        ) // Api Key
-
-        const data = await response.json()
-        const ethprice = data.ethusd
-        const ethPrice = await ethprice
-        const DisplayethPrice = ethPrice
-        console.log(DisplayethPrice)
-        return DisplayethPrice
-      } catch (error) {
-        console.log(error)
-      } finally {
+        // setLoading(false)
       }
     }
 
-    FetchEthPrice().then((result) => setEthPrice(result))
-
-    FetchEthReserve()
-      .then((result) => formatEther(result))
+    FetchReserve1()
       .then((result) => JSON.parse(result))
       .then((result) => result.toFixed(3))
-      .then((result) => setEthReserves(result))
+      .then((result) => setReserve1(result))
 
-    FetchJpegReserve()
-      .then((result) => formatEther(result))
+    FetchReserve0()
       .then((result) => JSON.parse(result))
       .then((result) => result.toFixed(3))
-      .then((result) => setJpegReserves(result))
-
-    FetchRawPrice()
-      .then((result) => formatEther(result))
-      .then((result) => JSON.parse(result))
-      .then((result) => result.toFixed(3))
-      .then((result) => setJpegPrice(result))
+      .then((result) => setReserve0(result))
   }, [account, showConnectAWallet, library.provider])
 
-  //const JpegPriceInUsd = JpegPrice / EthPrice
-  //const MarketCap = [(JpegPrice / EthPrice) * 10000000] // essentially jpegusd price divided by total supply
-  //const ReserveAinUsd = JpegReserves * JpegPriceInUsd
-  //const ReserveBinUsd = EthReserves * EthPrice
-  // const TotalLiquidity = ReserveAinUsd + ReserveBinUsd
+  const WifePrice = Reserve0 / Reserve1
+  const WifePriceinUsd = WifePrice / 100000
+  const MarketCap = [WifePriceinUsd * 100000000] // essentially jpegusd price divided by total supply
+  const ReserveBinusd = WifePriceinUsd * Reserve0
+  const TotalLiquidity = Reserve0 + ReserveBinusd
+
   return (
     <>
       <div className={'darktext'}>
-        <div className="flexbox-container" style={{ position: 'relative' }}>
+        <div className="flexbox-container" style={{ position: 'relative', right: 100 }}>
           <LightGreyCard
             style={{
               position: 'relative',
@@ -176,7 +125,10 @@ export default function NFTtable() {
                   paddingRight: 75,
                   boxShadow: '0px 0px 5px 0px rgba(0,0,0,0.40)',
                 }}
-              ></DarkCard>
+              >
+                {' '}
+                Total Liquidity {TotalLiquidity}
+              </DarkCard>
               <DarkCard
                 style={{
                   maxWidth: 200,
@@ -188,7 +140,10 @@ export default function NFTtable() {
                   paddingRight: 75,
                   boxShadow: '0px 0px 5px 0px rgba(0,0,0,0.40)',
                 }}
-              ></DarkCard>
+              >
+                {' '}
+                MarketCapitalization {MarketCap}{' '}
+              </DarkCard>
             </div>
             <p></p>
             <p></p>
@@ -204,7 +159,10 @@ export default function NFTtable() {
                   paddingRight: 75,
                   boxShadow: '0px 0px 5px 0px rgba(0,0,0,0.40)',
                 }}
-              ></DarkCard>
+              >
+                {' '}
+                $Wife Price {WifePriceinUsd}
+              </DarkCard>
               <DarkCard
                 style={{
                   maxWidth: 200,
