@@ -4,7 +4,7 @@ import 'animate.css'
 //import { LoadingOutlined } from '@ant-design/icons'
 import { Contract } from '@ethersproject/contracts'
 import { Web3Provider } from '@ethersproject/providers'
-import { formatEther } from '@ethersproject/units'
+import { formatEther, formatUnits } from '@ethersproject/units'
 import { useWeb3React } from '@web3-react/core'
 import { DarkCard } from 'components/Card'
 import useActiveWeb3React from 'hooks/useActiveWeb3React'
@@ -30,8 +30,8 @@ const UserTokenBalance = () => {
   const showConnectAWallet = Boolean(!account)
   const [userBalance, setuserBalance] = useState(Number)
   //const [claimableBalance, setclaimableBalance] = useState(Number)
-  const [Reserve0, setReserve0] = useState(String)
-  const [Reserve1, setReserve1] = useState(String)
+  const [Reserve0, setReserve0] = useState(Number)
+  const [Reserve1, setReserve1] = useState(Number)
   const context = useWeb3React()
   const { library } = context
   useEffect(() => {
@@ -119,14 +119,14 @@ const UserTokenBalance = () => {
     }
 
     FetchReserve1()
-      .then((result) => formatEther(result))
+      .then((result) => formatUnits(result))
       .then((result) => JSON.parse(result))
+      .then((result) => result.toFixed(3))
       .then((result) => setReserve1(result))
 
     FetchReserve0()
-      .then((result) => formatEther(result))
       .then((result) => JSON.parse(result))
-
+      .then((result) => result.toFixed(3))
       .then((result) => setReserve0(result))
 
     FetchBalance()
@@ -136,16 +136,12 @@ const UserTokenBalance = () => {
       .then((result) => setuserBalance(result))
   }, [account, showConnectAWallet, library.provider])
 
-  const Reserve1math = Number(Reserve1)
-  console.log(Reserve1math)
-  const Reserve2math = Number(Reserve0)
+  const WifePrice = Reserve0 / Reserve1
+  const WifePriceinUsd = WifePrice / 1000000
+  const wifeprice = WifePriceinUsd.toFixed(5)
   //const Reserve2price = Reserve2math * 1000000
-  console.log(Reserve2math)
-  console.log(Reserve0)
-  const WifePriceinUsd = Reserve2math / Reserve1math / 1000
-  console.log(WifePriceinUsd)
-  //const finalprice = WifePriceinUsd.toFixed(3)
-  // fetch - math - format?
+  const YourBalanceValue = (WifePriceinUsd * userBalance).toFixed(2)
+
   return (
     <>
       <div className={'animate__animated animate__backInRight'}>
@@ -168,7 +164,7 @@ const UserTokenBalance = () => {
               >
                 <Styledtext style={{ justifyContent: 'right', textAlign: 'left', paddingRight: 250 }}>
                   {' '}
-                  NFTs purchases {''} Coming Soon!
+                  Your Token Balance Value {''} $ {YourBalanceValue}
                 </Styledtext>
               </DarkCard>
               <DarkCard
