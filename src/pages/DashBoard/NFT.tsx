@@ -181,9 +181,8 @@ export default function NFTtable() {
             <LightGreyCard
               style={{
                 position: 'relative',
-                marginRight: '10px',
                 maxWidth: 600,
-                width: 500,
+                width: 475,
                 boxShadow: '0px 0px 10px 1px rgba(0,0,0,0.40)',
               }}
             >
