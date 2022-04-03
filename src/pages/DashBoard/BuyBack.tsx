@@ -30,7 +30,7 @@ export default function BuybackTable() {
           </tr>
           <tr>
             <td>2022-3-29</td>
-            <td>2</td>
+            <td>.32</td>
             <td>$1,147</td>
             <td>
               {' '}
@@ -69,6 +69,17 @@ export default function BuybackTable() {
               {' '}
               <a href="https://etherscan.io/tx/0xea293aee48642deb1230a8be90e5b4ee7d96a71d97c0464f396e0ec921b2cfc4">
                 0xea293aee48642deb1230a8be90e5b4ee7d96a71d97c0464f396e0ec921b2cfc4
+              </a>{' '}
+            </td>
+          </tr>
+          <tr>
+            <td>2022-4-3</td>
+            <td>.76</td>
+            <td>$2686</td>
+            <td>
+              {' '}
+              <a href="https://etherscan.io/tx/0xe6b5dbc1d5bfc4c2506436ba918bbdfd16fe85a73f841c536bfb935d679bfa46">
+                0xe6b5dbc1d5bfc4c2506436ba918bbdfd16fe85a73f841c536bfb935d679bfa46
               </a>{' '}
             </td>
           </tr>

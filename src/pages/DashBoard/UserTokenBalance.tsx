@@ -138,7 +138,8 @@ const UserTokenBalance = () => {
 
   const WifePrice = Reserve0 / Reserve1
   const WifePriceinUsd = WifePrice / 1000000
-  const wifeprice = WifePriceinUsd.toFixed(5)
+
+  //const wifeprice = WifePriceinUsd.toFixed(5)
   //const Reserve2price = Reserve2math * 1000000
   const YourBalanceValue = (WifePriceinUsd * userBalance).toFixed(2)
 
@@ -174,7 +175,7 @@ const UserTokenBalance = () => {
                 }}
               >
                 <Styledtext style={{ justifyContent: 'right', textAlign: 'right' }}>
-                  Project Total BuyBacks {''} $8321
+                  Project Total BuyBacks {''} $11,265
                 </Styledtext>
               </DarkCard>
             </div>

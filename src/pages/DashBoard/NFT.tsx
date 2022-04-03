@@ -1,10 +1,12 @@
 import './styles.css'
 import 'animate.css'
 
+import { LoadingOutlined } from '@ant-design/icons'
 import { Contract } from '@ethersproject/contracts'
 import { Web3Provider } from '@ethersproject/providers'
 import { formatUnits } from '@ethersproject/units'
 import { useWeb3React } from '@web3-react/core'
+import { Spin } from 'antd'
 import React, { useEffect, useState } from 'react'
 import styled from 'styled-components/macro'
 
@@ -30,9 +32,14 @@ export default function NFTtable() {
   //const [JpegReserves, setJpegReserves] = useState(Number)
   const context = useWeb3React()
   const { library } = context
+  const [loading, setLoading] = useState(true)
   const [Reserve0, setReserve0] = useState(Number)
   const [Reserve1, setReserve1] = useState(Number)
   const [holders, setholders] = useState(Number)
+  const [MriPrice, setMriPrice] = useState(Number)
+
+  const antIcon = <LoadingOutlined style={{ fontSize: 24 }} spin />
+
   useEffect(() => {
     //const provider = new Web3Provider(library.provider)
 
@@ -43,7 +50,7 @@ export default function NFTtable() {
       }
 
       try {
-        // setLoading(true)
+        setLoading(true)
         const provider = new Web3Provider(library.provider)
         const response = await fetch(
           'https://api.etherscan.io/api?module=contract&action=getabi&address=0x3ee197c0434ef9fcef00c7cf338858a85e551640&apikey=432BW4Y2JX817J6CJAWGHAFTXQNFVXRU2Q'
@@ -61,7 +68,7 @@ export default function NFTtable() {
         console.log(error)
         //setLoading(false)
       } finally {
-        // setLoading(false)
+        //setLoading(true)
       }
     }
     async function FetchReserve1() {
@@ -71,7 +78,7 @@ export default function NFTtable() {
       }
 
       try {
-        // setLoading(true)
+        setLoading(true)
         const provider = new Web3Provider(library.provider)
         const response = await fetch(
           'https://api.etherscan.io/api?module=contract&action=getabi&address=0x3ee197c0434ef9fcef00c7cf338858a85e551640&apikey=432BW4Y2JX817J6CJAWGHAFTXQNFVXRU2Q'
@@ -92,7 +99,6 @@ export default function NFTtable() {
         // setLoading(false)
       }
     }
-
     async function FetchHolders() {
       if (showConnectAWallet) {
         console.log({ message: 'Hold On there Partner, there seems to be an Account err!' })
@@ -100,7 +106,7 @@ export default function NFTtable() {
       }
 
       try {
-        // setLoading(true)
+        setLoading(true)
         const response = await fetch(
           'https://api.ethplorer.io/getTokenInfo/0xC6Ef330D0cf66FDFb61c2eB904e90E4e67E401Ec?apiKey=EK-pHhzD-K23vfE9-d9bYq'
         ) // Api Key also the pair contract
@@ -110,9 +116,31 @@ export default function NFTtable() {
         return holders
       } catch (error) {
         console.log(error)
-        //setLoading(false)
+        setLoading(false)
       } finally {
-        // setLoading(false)
+        setLoading(false)
+      }
+    }
+    async function FetchMriPrice() {
+      if (showConnectAWallet) {
+        console.log({ message: 'Hold On there Partner, there seems to be an Account err!' })
+        return
+      }
+
+      try {
+        setLoading(true)
+        const response = await fetch(
+          'https://api.ethplorer.io/getTokenInfo/0x0913dDAE242839f8995c0375493f9a1A3Bddc977?apiKey=EK-pHhzD-K23vfE9-d9bYq'
+        ) // Api Key also the pair contract
+
+        const data = await response.json()
+        const holders = data.price.rate
+        return holders
+      } catch (error) {
+        console.log(error)
+        setLoading(false)
+      } finally {
+        setLoading(false)
       }
     }
 
@@ -128,20 +156,22 @@ export default function NFTtable() {
       .then((result) => setReserve0(result))
 
     FetchHolders().then((result) => setholders(result))
+
+    FetchMriPrice().then((result) => setMriPrice(result))
   }, [account, showConnectAWallet, library.provider])
 
   const WifePrice = Reserve0 / Reserve1
   const WifePriceinUsd = WifePrice / 1000000
   const wifeprice = WifePriceinUsd.toFixed(5)
-  const MarketCap = (WifePriceinUsd * 100000000).toFixed(0) // essentially jpegusd price divided by total supply
+  const Marketcap = (WifePriceinUsd * 100000000).toFixed(0) // essentially jpegusd price divided by total supply
+  const MarketCap = Marketcap.toLocaleString()
   const ReserveBinusd = WifePriceinUsd * Reserve1
-  console.log(ReserveBinusd)
-  console.log(Reserve1)
-  console.log(WifePriceinUsd)
   const reserve0value = Reserve0 / 1000000
-  console.log(reserve0value)
-  const TotalLiquidity = (reserve0value + ReserveBinusd).toFixed(0)
-  console.log(TotalLiquidity)
+  const Totalliquidity = (reserve0value + ReserveBinusd).toFixed(0)
+  const TotalLiquidity = Totalliquidity.toLocaleString()
+  const InvestmentValue = MriPrice * 89465
+  const FormatInvestment = InvestmentValue.toFixed(2)
+  const FormatPrice = MriPrice.toFixed(4)
 
   return (
     <>
@@ -173,7 +203,18 @@ export default function NFTtable() {
                     boxShadow: '0px 0px 5px 0px rgba(0,0,0,0.40)',
                   }}
                 >
-                  <Styledtext> Liquidity {TotalLiquidity}</Styledtext>
+                  <div hidden={loading}>
+                    <Styledtext>Liquidity {TotalLiquidity} </Styledtext>{' '}
+                  </div>{' '}
+                  {loading ? (
+                    <Spin
+                      style={{ position: 'relative', bottom: 20, left: 10 }}
+                      indicator={antIcon}
+                      className="add-spinner"
+                    />
+                  ) : (
+                    ''
+                  )}
                 </DarkCard>
                 <DarkCard
                   style={{
@@ -187,7 +228,18 @@ export default function NFTtable() {
                     boxShadow: '0px 0px 5px 0px rgba(0,0,0,0.40)',
                   }}
                 >
-                  <Styledtext> MarketCapitalization {MarketCap}</Styledtext>{' '}
+                  <div hidden={loading}>
+                    <Styledtext>Valuation {MarketCap} </Styledtext>{' '}
+                  </div>{' '}
+                  {loading ? (
+                    <Spin
+                      style={{ position: 'relative', bottom: 20, right: 10 }}
+                      indicator={antIcon}
+                      className="add-spinner"
+                    />
+                  ) : (
+                    ''
+                  )}
                 </DarkCard>
               </div>
               <p></p>
@@ -206,8 +258,18 @@ export default function NFTtable() {
                     boxShadow: '0px 0px 5px 0px rgba(0,0,0,0.40)',
                   }}
                 >
-                  {' '}
-                  <Styledtext> Price {wifeprice}</Styledtext>
+                  <div hidden={loading}>
+                    <Styledtext>Price {wifeprice} </Styledtext>{' '}
+                  </div>{' '}
+                  {loading ? (
+                    <Spin
+                      style={{ position: 'relative', bottom: 20, left: 10 }}
+                      indicator={antIcon}
+                      className="add-spinner"
+                    />
+                  ) : (
+                    ''
+                  )}
                 </DarkCard>
                 <DarkCard
                   style={{
@@ -236,7 +298,7 @@ export default function NFTtable() {
               }}
             >
               <h1 style={{ textAlign: 'center', fontWeight: 'bold', fontFamily: 'Geneva, Verdana, sans-serif' }}>
-                NFT table
+                Assets Under Managment
               </h1>
               <div className="flexbox-container">
                 <DarkCard
@@ -250,7 +312,11 @@ export default function NFTtable() {
                     paddingRight: 75,
                     boxShadow: '0px 0px 5px 0px rgba(0,0,0,0.40)',
                   }}
-                ></DarkCard>
+                >
+                  {' '}
+                  <Styledtext> Symbol: MRI</Styledtext>
+                </DarkCard>
+
                 <DarkCard
                   style={{
                     maxWidth: 200,
@@ -262,7 +328,10 @@ export default function NFTtable() {
                     paddingRight: 75,
                     boxShadow: '0px 0px 5px 0px rgba(0,0,0,0.40)',
                   }}
-                ></DarkCard>
+                >
+                  {' '}
+                  <Styledtext> Amount: 89,465</Styledtext>
+                </DarkCard>
               </div>
               <p></p>
               <p></p>
@@ -270,7 +339,7 @@ export default function NFTtable() {
                 <DarkCard
                   style={{
                     maxWidth: 200,
-                    maxHeight: 100,
+                    maxHeight: 50,
                     position: 'relative',
                     left: 10,
                     paddingLeft: 75,
@@ -278,11 +347,25 @@ export default function NFTtable() {
                     paddingRight: 75,
                     boxShadow: '0px 0px 5px 0px rgba(0,0,0,0.40)',
                   }}
-                ></DarkCard>
+                >
+                  {' '}
+                  <div hidden={loading}>
+                    <Styledtext>Price {FormatPrice} </Styledtext>{' '}
+                  </div>{' '}
+                  {loading ? (
+                    <Spin
+                      style={{ position: 'relative', bottom: 20, left: 10 }}
+                      indicator={antIcon}
+                      className="add-spinner"
+                    />
+                  ) : (
+                    ''
+                  )}
+                </DarkCard>
                 <DarkCard
                   style={{
                     maxWidth: 200,
-                    maxHeight: 100,
+                    maxHeight: 50,
                     position: 'relative',
                     left: 30,
                     paddingLeft: 75,
@@ -290,7 +373,20 @@ export default function NFTtable() {
                     paddingRight: 75,
                     boxShadow: '0px 0px 5px 0px rgba(0,0,0,0.40)',
                   }}
-                ></DarkCard>
+                >
+                  <div hidden={loading}>
+                    <Styledtext>Value {FormatInvestment} </Styledtext>{' '}
+                  </div>{' '}
+                  {loading ? (
+                    <Spin
+                      style={{ position: 'relative', bottom: 20, left: 10 }}
+                      indicator={antIcon}
+                      className="add-spinner"
+                    />
+                  ) : (
+                    ''
+                  )}
+                </DarkCard>
               </div>
             </LightGreyCard>
           </div>
