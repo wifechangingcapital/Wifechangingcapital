@@ -35,6 +35,8 @@ export default function NFTtable() {
   const [loading, setLoading] = useState(true)
   const [Reserve0, setReserve0] = useState(Number)
   const [Reserve1, setReserve1] = useState(Number)
+  const [SHIReserve0, setSHIReserve0] = useState(Number)
+  const [SHIReserve1, setSHIReserve1] = useState(Number)
   const [holders, setholders] = useState(Number)
   const [MriPrice, setMriPrice] = useState(Number)
 
@@ -42,6 +44,62 @@ export default function NFTtable() {
 
   useEffect(() => {
     //const provider = new Web3Provider(library.provider)
+    async function FetchSHIReserve0() {
+      if (showConnectAWallet) {
+        console.log({ message: 'Hold On there Partner, there seems to be an Account err!' })
+        return
+      }
+
+      try {
+        setLoading(true)
+        const provider = new Web3Provider(library.provider)
+        const response = await fetch(
+          'https://api.etherscan.io/api?module=contract&action=getabi&address=0x3ee197c0434ef9fcef00c7cf338858a85e551640&apikey=432BW4Y2JX817J6CJAWGHAFTXQNFVXRU2Q'
+        ) // Api Key also the pair contract
+
+        const data = await response.json()
+        const abi = data.result
+        const contractaddress = '0x3ee197c0434ef9fcef00c7cf338858a85e551640' // need uniswapv2pair
+        const contract = new Contract(contractaddress, abi, provider)
+        const Price = await contract.getReserves()
+        const Reserve0 = await Price._reserve0
+        const ShiReserve0 = Reserve0.toString()
+        return ShiReserve0
+      } catch (error) {
+        console.log(error)
+        //setLoading(false)
+      } finally {
+        //setLoading(true)
+      }
+    }
+    async function FetchSHIReserve1() {
+      if (showConnectAWallet) {
+        console.log({ message: 'Hold On there Partner, there seems to be an Account err!' })
+        return
+      }
+
+      try {
+        setLoading(true)
+        const provider = new Web3Provider(library.provider)
+        const response = await fetch(
+          'https://api.etherscan.io/api?module=contract&action=getabi&address=0x3ee197c0434ef9fcef00c7cf338858a85e551640&apikey=432BW4Y2JX817J6CJAWGHAFTXQNFVXRU2Q'
+        ) // Api Key also the pair contract
+
+        const data = await response.json()
+        const abi = data.result
+        const contractaddress = '0x3ee197c0434ef9fcef00c7cf338858a85e551640' // need uniswapv2pair
+        const contract = new Contract(contractaddress, abi, provider)
+        const Price = await contract.getReserves()
+        const Reserve1 = await Price._reserve1
+        const Reserve1display = Reserve1.toString()
+        return Reserve1display
+      } catch (error) {
+        console.log(error)
+        //setLoading(false)
+      } finally {
+        // setLoading(false)
+      }
+    }
 
     async function FetchReserve0() {
       if (showConnectAWallet) {
@@ -155,11 +213,23 @@ export default function NFTtable() {
       .then((result) => result.toFixed(3))
       .then((result) => setReserve0(result))
 
+    FetchSHIReserve1()
+      .then((result) => formatUnits(result))
+      .then((result) => JSON.parse(result))
+      .then((result) => result.toFixed(3))
+      .then((result) => setSHIReserve1(result))
+
+    FetchSHIReserve0()
+      .then((result) => JSON.parse(result))
+      .then((result) => result.toFixed(3))
+      .then((result) => setSHIReserve0(result))
+
     FetchHolders().then((result) => setholders(result))
 
     FetchMriPrice().then((result) => setMriPrice(result))
   }, [account, showConnectAWallet, library.provider])
-
+  const shiprice = SHIReserve0 / SHIReserve1
+  const SHIPriceinUSD = shiprice / 1000000
   const WifePrice = Reserve0 / Reserve1
   const WifePriceinUsd = WifePrice / 1000000
   const wifeprice = WifePriceinUsd.toFixed(5)
@@ -181,13 +251,13 @@ export default function NFTtable() {
             <LightGreyCard
               style={{
                 position: 'relative',
-                maxWidth: 600,
+                maxWidth: 800,
                 width: 475,
                 boxShadow: '0px 0px 10px 1px rgba(0,0,0,0.40)',
               }}
             >
               <h1 style={{ textAlign: 'center', fontWeight: 'bold', fontFamily: 'Geneva, Verdana, sans-serif' }}>
-                Metrics
+                Company Metrics
               </h1>
               <div className="flexbox-container">
                 <DarkCard

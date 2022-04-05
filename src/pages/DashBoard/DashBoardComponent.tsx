@@ -6,7 +6,7 @@ import styled from 'styled-components/macro'
 
 import { DarkCard } from '../../components/Card'
 import BuybackTable from './BuyBack'
-import NFTtable from './NFT'
+//import NFTtable from './NFT'
 //import ClaimTransaction from './ClaimTransaction'
 import UserTokenBalance from './UserTokenBalance'
 //import UserTokenStats from './Userstats'
@@ -58,8 +58,6 @@ export default function DashBoardComponent() {
         <>
           <div className={'flexbox-vertical-container'}>
             <UserTokenBalance></UserTokenBalance>
-            <p></p>
-            <NFTtable></NFTtable>
             <p></p>
             <BuybackTable></BuybackTable>
           </div>
