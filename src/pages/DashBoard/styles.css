@@ -49,6 +49,17 @@
   align-items: right;
   justify-content: right;
 }
+#background-video{
+
+  height: 100%;
+  width: 100%;
+  float: left;
+  top: 0;
+  padding: none;
+  position: fixed; /* optional depending on what you want to do in your app */
+  
+  
+  }
 .videostyle {
   object-fit: cover;
   width: 100vw;
