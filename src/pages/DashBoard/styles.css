@@ -42,6 +42,13 @@
   max-height: 300px;
 
 }
+.textalignright{
+  text-align: right;
+  position: relative;
+  left: 100;
+  align-items: right;
+  justify-content: right;
+}
 .videostyle {
   object-fit: cover;
   width: 100vw;

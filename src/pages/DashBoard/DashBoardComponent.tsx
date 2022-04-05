@@ -59,8 +59,6 @@ export default function DashBoardComponent() {
           <div className={'flexbox-vertical-container'}>
             <UserTokenBalance></UserTokenBalance>
             <p></p>
-
-            <p></p>
             <BuybackTable></BuybackTable>
           </div>
         </>

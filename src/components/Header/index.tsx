@@ -259,8 +259,6 @@ export default function Header() {
         <UniIcon>
           <Logo src={mcdegenlogo} alt="logo" width="50px" height="100%"></Logo>
         </UniIcon>
-        <HeaderLinks></HeaderLinks>
-
         <HeaderControls>
           <HeaderElement>
             <NetworkSelector />
