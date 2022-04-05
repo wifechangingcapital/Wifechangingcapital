@@ -47,7 +47,7 @@ const UserTokenBalance = () => {
   const [SHIReserve0, setSHIReserve0] = useState(Number)
   const [SHIReserve1, setSHIReserve1] = useState(Number)
   const [holders, setholders] = useState(Number)
-  const [MriPrice, setMriPrice] = useState(Number)
+  //const [MriPrice, setMriPrice] = useState(Number)
   const context = useWeb3React()
   const { library } = context
   const [loading, setLoading] = useState(true)
@@ -159,28 +159,6 @@ const UserTokenBalance = () => {
         setLoading(false)
       }
     }
-    async function FetchMriPrice() {
-      if (showConnectAWallet) {
-        console.log({ message: 'Hold On there Partner, there seems to be an Account err!' })
-        return
-      }
-
-      try {
-        setLoading(true)
-        const response = await fetch(
-          'https://api.ethplorer.io/getTokenInfo/0x0913dDAE242839f8995c0375493f9a1A3Bddc977?apiKey=EK-pHhzD-K23vfE9-d9bYq'
-        ) // Api Key also the pair contract
-
-        const data = await response.json()
-        const holders = data.price.rate
-        return holders
-      } catch (error) {
-        console.log(error)
-        setLoading(false)
-      } finally {
-        setLoading(false)
-      }
-    }
     async function FetchSHIReserve0() {
       if (showConnectAWallet) {
         console.log({ message: 'Hold On there Partner, there seems to be an Account err!' })
@@ -267,8 +245,6 @@ const UserTokenBalance = () => {
       .then((result) => setSHIReserve0(result))
 
     FetchHolders().then((result) => setholders(result))
-
-    FetchMriPrice().then((result) => setMriPrice(result))
   }, [account, showConnectAWallet, library.provider])
 
   const WifePrice = Reserve0 / Reserve1
@@ -280,7 +256,7 @@ const UserTokenBalance = () => {
   const shiprice = SHIReserve0 / SHIReserve1
   const SHIPriceinUSD = shiprice / 20000000000000
   console.log(SHIPriceinUSD)
-  const SHIinvestmentValue = SHIPriceinUSD * 2292061013
+  //const SHIinvestmentValue = SHIPriceinUSD * 2292061013
   const wifeprice = WifePriceinUsd.toFixed(5)
   const Marketcap = (WifePriceinUsd * 100000000).toFixed(0) // essentially jpegusd price divided by total supply
   const MarketCap = Marketcap.toLocaleString()
@@ -288,8 +264,8 @@ const UserTokenBalance = () => {
   const reserve0value = Reserve0 / 1000000
   const Totalliquidity = (reserve0value + ReserveBinusd).toFixed(0)
   const TotalLiquidity = Totalliquidity.toLocaleString()
-  const MRIInvestmentValue = MriPrice * 89465
-  const InvestmentValue = SHIinvestmentValue + MRIInvestmentValue
+  //const MRIInvestmentValue = MriPrice * 89465
+  //const InvestmentValue = SHIinvestmentValue + MRIInvestmentValue
   //const FormatedInvestmentValue = InvestmentValue.toFixed(1)
 
   return (
@@ -334,11 +310,7 @@ const UserTokenBalance = () => {
                         <Styledtext1 style={{ position: 'relative', left: 275 }}>{MarketCap} </Styledtext1>{' '}
                       </div>{' '}
                       {loading ? (
-                        <Spin
-                          style={{ position: 'relative', bottom: 20, left: 10 }}
-                          indicator={antIcon}
-                          className="add-spinner"
-                        />
+                        <Spin style={{ position: 'relative', left: 275 }} indicator={antIcon} className="add-spinner" />
                       ) : (
                         ''
                       )}
