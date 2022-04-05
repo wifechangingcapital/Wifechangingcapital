@@ -258,12 +258,24 @@ const UserTokenBalance = () => {
   console.log(SHIPriceinUSD)
   //const SHIinvestmentValue = SHIPriceinUSD * 2292061013
   const wifeprice = WifePriceinUsd.toFixed(5)
-  const Marketcap = (WifePriceinUsd * 100000000).toFixed(0) // essentially jpegusd price divided by total supply
-  const MarketCap = Marketcap.toLocaleString()
+  const Marketcap = WifePriceinUsd * 100000000 // essentially jpegusd price divided by total supply
+  //const MarketCap = Marketcap.toLocaleString()
   const ReserveBinusd = WifePriceinUsd * Reserve1
   const reserve0value = Reserve0 / 1000000
-  const Totalliquidity = (reserve0value + ReserveBinusd).toFixed(0)
+  const Totalliquidity = reserve0value + ReserveBinusd
   const TotalLiquidity = Totalliquidity.toLocaleString()
+
+  function formatMoney(n: any) {
+    return '$ ' + (Math.round(n * 100) / 100).toLocaleString()
+  }
+  function numberWithCommas(num: any) {
+    return num.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ',')
+  }
+
+  const n = numberWithCommas(Totalliquidity)
+  const MarketCap = formatMoney(Marketcap)
+
+  console.log(n) // "234,234.555"
   //const MRIInvestmentValue = MriPrice * 89465
   //const InvestmentValue = SHIinvestmentValue + MRIInvestmentValue
   //const FormatedInvestmentValue = InvestmentValue.toFixed(1)
@@ -297,38 +309,50 @@ const UserTokenBalance = () => {
                   <div className="flexbox-container">
                     {' '}
                     <Styledtext>Holders{''}</Styledtext>
-                    {''} <Styledtext1 style={{ position: 'relative', left: 400 }}> {holders} </Styledtext1>
+                    {''} <Styledtext1 style={{ position: 'relative', left: 410 }}> {holders} </Styledtext1>
                   </div>
                 </DarkCard>
                 <DarkCard>
                   <div className="flexbox-container">
                     {' '}
                     <Styledtext>Market Capitalization{''}</Styledtext>
-                    <div className={'textalignright'}>
-                      {''}
-                      <div hidden={loading}>
-                        <Styledtext1 style={{ position: 'relative', left: 275 }}>{MarketCap} </Styledtext1>{' '}
-                      </div>{' '}
-                      {loading ? (
-                        <Spin style={{ position: 'relative', left: 275 }} indicator={antIcon} className="add-spinner" />
-                      ) : (
-                        ''
-                      )}
-                    </div>
+                    {''}
+                    <div hidden={loading}>
+                      <Styledtext1 style={{ position: 'relative', left: 250 }}>{MarketCap} </Styledtext1>{' '}
+                    </div>{' '}
+                    {loading ? (
+                      <Spin style={{ position: 'relative', left: 265 }} indicator={antIcon} className="add-spinner" />
+                    ) : (
+                      ''
+                    )}
                   </div>
                 </DarkCard>
                 <DarkCard>
                   <div className="flexbox-container">
                     {' '}
                     <Styledtext>Liquidity {''}</Styledtext>
-                    {''} <Styledtext1 style={{ position: 'relative', left: 375 }}> ${TotalLiquidity} </Styledtext1>
+                    <div hidden={loading}>
+                      <Styledtext1 style={{ position: 'relative', left: 360 }}>{TotalLiquidity} </Styledtext1>{' '}
+                    </div>{' '}
+                    {loading ? (
+                      <Spin style={{ position: 'relative', left: 370 }} indicator={antIcon} className="add-spinner" />
+                    ) : (
+                      ''
+                    )}
                   </div>
                 </DarkCard>
                 <DarkCard>
                   <div className="flexbox-container">
                     {' '}
                     <Styledtext>$Wife Price {''}</Styledtext>
-                    <Styledtext1 style={{ position: 'relative', left: 350 }}> ${wifeprice}</Styledtext1>
+                    <div hidden={loading}>
+                      <Styledtext1 style={{ position: 'relative', left: 350 }}>${wifeprice} </Styledtext1>{' '}
+                    </div>{' '}
+                    {loading ? (
+                      <Spin style={{ position: 'relative', left: 350 }} indicator={antIcon} className="add-spinner" />
+                    ) : (
+                      ''
+                    )}
                   </div>
                 </DarkCard>
               </LightGreyCard>
@@ -370,7 +394,7 @@ const UserTokenBalance = () => {
                   <div className="flexbox-container">
                     {' '}
                     <Styledtext>Total Supply Burned{''}</Styledtext>
-                    {''} <Styledtext1> $4% </Styledtext1>
+                    {''} <Styledtext1> 4% </Styledtext1>
                   </div>
                 </DarkCard>
               </LightGreyCard>
@@ -381,5 +405,4 @@ const UserTokenBalance = () => {
     </div>
   )
 }
-
 export default UserTokenBalance
